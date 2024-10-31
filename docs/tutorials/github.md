@@ -88,20 +88,13 @@ wget https://raw.githubusercontent.com/usnistgov/oscal-content/release-v1.0.5-up
 sed -i 's/NIST_SP-800-53_rev5_catalog.json/trestle:\/\/catalogs\/nist_rev5_800_53\/catalog.json/g' profiles/nist_rev5_800_53/profile.json
 ```
 
-4. Ready-made CI/CD workflows can be copied from the `TEMPLATES` directory within the upstream `trestle-bot` repository into the local trestle workspace. These are the trestlebot actions that will run as changes are made to the repo contents.
+4. Ready-made CI/CD workflows can be copied from the `.github/workflows/` directory within the upstream `trestle-demo` repository into the local trestle workspace. These are the trestlebot actions that will run as changes are made to the repo contents.
 
- * If trestlebot init was run earlier using a trestle-bot container image, then the upstream trestle-bot repository will first need to be cloned locally into a separate directory.
-```
-cd ..
-git clone https://github.com/RedHatProductSecurity/trestle-bot.git
-cd ../<trestle_workspace_repo>
-```
-
- * Copy the required template workflows from the separate `trestle-bot` repository into the new workspace repository.
+ * Copy the required template workflows from the `trestle-demo` repository into the new workspace repository.
 ```
 mkdir -p .github/workflows
-cp ../trestle-bot/TEMPLATES/github/trestlebot-create-component-definition.yml .github/workflows
-cp ../trestle-bot/TEMPLATES/github/trestlebot-rules-transform.yml .github/workflows
+wget -O .github/workflows/trestlebot-rules-transform.yml https://raw.githubusercontent.com/RedHatProductSecurity/trestle-demo/refs/heads/main/.github/workflows/trestlebot-rules-transform.yml 
+wget -O .github/workflows/trestlebot-create-component-definition.yml https://raw.githubusercontent.com/RedHatProductSecurity/trestle-demo/refs/heads/main/.github/workflows/trestlebot-create-component-definition.yml
 ```
 
 5. Trestle-bot initial content is now created locally within the new trestle authoring workspace. This content can now be pushed to the remote GitHub repository.
