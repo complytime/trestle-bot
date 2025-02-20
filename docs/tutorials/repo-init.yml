@@ -1,0 +1,98 @@
+---
+- name: "Set repository for trestlebot transformation labs"
+  hosts: localhost
+  vars:
+    trestlebot_repo: "https://github.com/<CHANGEME>/trestle-bot.git"
+    trestlebot_repo_dest: "~/GIT/ProdSec/trestle-bot"
+    trestlebot_labs_repo: "https://github.com/<CHANGEME>/trestlebot-labs.git"
+    trestlebot_labs_repo_dest: "~/LABs/trestlebot-labs"
+
+    json_files:
+      - { url: "https://raw.githubusercontent.com/usnistgov/oscal-content/release-v1.0.5-update/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+          dest_dir: "{{ trestlebot_labs_repo_dest }}/catalogs/nist_rev5_800_53",
+          dest_file: "catalog.json" }
+      - { url: "https://raw.githubusercontent.com/usnistgov/oscal-content/release-v1.0.5-update/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_HIGH-baseline_profile.json",
+          dest_dir: "{{ trestlebot_labs_repo_dest }}/profiles/nist_rev5_800_53",
+          dest_file: "profile.json" }
+
+    trestlebot_repos:
+      - { name: "trestle-bot",
+          repo: "{{ trestlebot_repo }}",
+          dest: "{{ trestlebot_repo_dest }}" }
+
+      - { name: "trestlebot-labs",
+          repo: "{{ trestlebot_labs_repo }}",
+          dest: "{{ trestlebot_labs_repo_dest }}" }
+
+  tasks:
+    - name: "Ensure the trestlebot repositories are cloned and updated"
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+        clone: true
+        update: true
+        version: "main"
+      loop: "{{ trestlebot_repos }}"
+      register: result_git_update
+      ignore_errors: true
+
+    - name: "Check existing trestlebot Workspace"
+      ansible.builtin.stat:
+        path: "{{ trestlebot_labs_repo_dest }}/.trestlebot"
+      register: trestlebot_workspace
+
+    - name: "Ensure dependencies and virtual environment for trestlebot"
+      ansible.builtin.command:
+        cmd: "poetry install"
+        chdir: "{{ trestlebot_repo_dest }}"
+      register: result_poetry_install_command
+      changed_when:
+        - result_poetry_install_command.stdout is search('Package operations:.*?([1-9][0-9]*) .*?([1-9][0-9]*) .*?([1-9][0-9]*)')
+
+    - name: "Initialize trestlebot Workspace"
+      ansible.builtin.command:
+        cmd: "poetry run trestlebot-init --oscal-model compdef --working-dir {{ trestlebot_labs_repo_dest }}"
+        chdir: "{{ trestlebot_repo_dest }}"
+      register: result_init_command
+      changed_when: "'Found existing .trestlebot directory' not in result_init_command.stderr"
+      when:
+        - not trestlebot_workspace.stat.exists
+        - result_poetry_install_command is success
+
+    - name: "Ensure directories for trestlebot JSON files"
+      ansible.builtin.file:
+        dest: "{{ item.dest_dir }}"
+        state: directory
+        mode: '0750'
+      loop: "{{ json_files }}"
+
+    - name: "Download JSON files for trestlebot Workspace"
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ item.dest_dir }}/{{ item.dest_file }}"
+        mode: '0640'
+      loop: "{{ json_files }}"
+      register: result_download_json_files
+
+    - name: "Replace catalog reference in profile.json"
+      ansible.builtin.replace:
+        path: "{{ trestlebot_labs_repo_dest }}/profiles/nist_rev5_800_53/profile.json"
+        regexp: "NIST_SP-800-53_rev5_catalog.json"
+        replace: "trestle://catalogs/nist_rev5_800_53/catalog.json"
+      when: result_download_json_files is changed
+
+    - name: "Ensure directory for GitHub workflows"
+      ansible.builtin.file:
+        dest: "{{ trestlebot_labs_repo_dest }}/.github/workflows"
+        state: directory
+        mode: '0750'
+
+    - name: "Copy workflows from templates in trestle-bot repository"
+      ansible.builtin.copy:
+        src: "{{ trestlebot_repo_dest }}/TEMPLATES/github/{{ item }}"
+        dest: "{{ trestlebot_labs_repo_dest }}/.github/workflows"
+        mode: '0640'
+      loop:
+        - "trestlebot-create-component-definition.yml"
+        - "trestlebot-rules-transform.yml"
+...
