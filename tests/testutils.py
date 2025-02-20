@@ -6,6 +6,7 @@
 
 import argparse
 import logging
+import os
 import pathlib
 import shutil
 import tempfile
@@ -230,6 +231,22 @@ def setup_for_compdef(
     )
 
     return args
+
+
+def setup_for_cac_content_dir(tmp_dir: str, cac_content_src_dir: pathlib.Path) -> None:
+    """
+    Setup cac content dir for testing
+    """
+    shutil.copytree(cac_content_src_dir, tmp_dir, dirs_exist_ok=True)
+
+    # modify abcd-levels.yml control file for sync OSCAL content testing
+    abcd_levels_control_file_path = os.path.join(tmp_dir, "controls", "abcd-levels.yml")
+    replace_string_in_file(
+        abcd_levels_control_file_path,
+        "rules: []",
+        "rules:\n      - file_groupownership_sshd_private_key\n"
+        "      - var_sshd_set_keepalive=1\n      - var_system_crypto_policy=fips",
+    )
 
 
 def setup_rules_view(
