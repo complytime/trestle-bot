@@ -14,6 +14,7 @@ from trestlebot.cli.commands.sync_cac_content import (
     sync_cac_catalog_cmd,
     sync_cac_content_cmd,
 )
+from trestlebot.cli.commands.sync_oscal_content import sync_oscal_content_cmd
 from trestlebot.cli.commands.sync_upstreams import sync_upstreams_cmd
 
 
@@ -40,6 +41,7 @@ root_cmd.add_command(rules_transform_cmd)
 root_cmd.add_command(sync_cac_catalog_cmd)
 root_cmd.add_command(sync_cac_content_cmd)
 root_cmd.add_command(sync_upstreams_cmd)
+root_cmd.add_command(sync_oscal_content_cmd)
 
 if __name__ == "__main__":
     root_cmd()
