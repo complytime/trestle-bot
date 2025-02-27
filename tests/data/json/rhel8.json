@@ -1,0 +1,243 @@
+{
+  "component-definition": {
+    "uuid": "5d34623f-d243-4cba-99f0-663be3df8dfa",
+    "metadata": {
+      "title": "Component definition for rhel8",
+      "last-modified": "2025-02-21T09:20:55.751305+00:00",
+      "version": "1.0",
+      "oscal-version": "1.1.2"
+    },
+    "components": [
+      {
+        "uuid": "284ad08b-e8df-432a-b02a-3936983f9daa",
+        "type": "service",
+        "title": "rhel8",
+        "description": "Red Hat Enterprise Linux 8",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "configure_crypto_policy",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Test Configure System Cryptography Policy",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_sshd_set_keepalive",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the maximum number of idle message counts before session is terminated.",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{10: 10, 3: 3, 5: 5, 0: 0, 1: 1, 'default': 0}",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_system_crypto_policy",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the crypto policy for the system.",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{'default': 'DEFAULT', 'default_policy': 'DEFAULT', 'default_nosha1': 'DEFAULT:NO-SHA1', 'fips': 'FIPS', 'fips_ospp': 'FIPS:OSPP', 'legacy': 'LEGACY', 'future': 'FUTURE', 'next': 'NEXT'}",
+            "remarks": "rule_set_0"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "file_groupownership_sshd_private_key",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Test Verify Group Ownership on SSH Server Private *_key Key Files",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_sshd_set_keepalive",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the maximum number of idle message counts before session is terminated.",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{10: 10, 3: 3, 5: 5, 0: 0, 1: 1, 'default': 0}",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_system_crypto_policy",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the crypto policy for the system.",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{'default': 'DEFAULT', 'default_policy': 'DEFAULT', 'default_nosha1': 'DEFAULT:NO-SHA1', 'fips': 'FIPS', 'fips_ospp': 'FIPS:OSPP', 'legacy': 'LEGACY', 'future': 'FUTURE', 'next': 'NEXT'}",
+            "remarks": "rule_set_1"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "sshd_set_keepalive",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Test Set SSH Client Alive Count Max",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_sshd_set_keepalive",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the maximum number of idle message counts before session is terminated.",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{10: 10, 3: 3, 5: 5, 0: 0, 1: 1, 'default': 0}",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "var_system_crypto_policy",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "Specify the crypto policy for the system.",
+            "remarks": "rule_set_2"
+          },
+          {
+            "name": "Parameter_Value_Alternatives",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "{'default': 'DEFAULT', 'default_policy': 'DEFAULT', 'default_nosha1': 'DEFAULT:NO-SHA1', 'fips': 'FIPS', 'fips_ospp': 'FIPS:OSPP', 'legacy': 'LEGACY', 'future': 'FUTURE', 'next': 'NEXT'}",
+            "remarks": "rule_set_2"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "6ef3a566-1c8e-41b5-b448-6c12f9b8b9a9",
+            "source": "trestle://profiles/simplified_nist_profile/profile.json",
+            "description": "REPLACE_ME",
+            "props": [
+              {
+                "name": "Framework_Short_Name",
+                "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal",
+                "value": "example"
+              }
+            ],
+            "set-parameters": [
+              {
+                "param-id": "var_system_crypto_policy",
+                "values": [
+                  "future"
+                ]
+              },
+              {
+                "param-id": "no-exist-param",
+                "values": [
+                  "fips"
+                ]
+              },
+              {
+                "param-id": "var_password_pam_minlen",
+                "values": [
+                  "15"
+                ]
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "7137b96b-4971-42df-8a83-a461822bdfff",
+                "control-id": "ac-2",
+                "description": "REPLACE_ME",
+                "props": [
+                  {
+                    "name": "implementation-status",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "alternative",
+                    "remarks": "REPLACE_ME"
+                  }
+                ]
+              },
+              {
+                "uuid": "bb911492-3a1a-468b-8c99-4d980470c8fc",
+                "control-id": "ac-1",
+                "description": "REPLACE_ME",
+                "props": [
+                  {
+                    "name": "implementation-status",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "implemented"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "file_groupownership_sshd_private_key"
+                  }
+                ],
+                "statements": [
+                  {
+                    "statement-id": "ac-1_smt.a",
+                    "uuid": "7dacd3e5-4832-4c35-9231-1cda8bce2c11",
+                    "description": "AC-1(a) is an organizational control outside the scope of OpenShift configuration."
+                  },
+                  {
+                    "statement-id": "ac-1_smt.b",
+                    "uuid": "7f4d1616-a32f-4e5c-8c35-835bcc85b603",
+                    "description": "AC-1(b) is an organizational control outside the scope of OpenShift configuration."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
