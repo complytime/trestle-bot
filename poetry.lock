@@ -494,13 +494,13 @@ files = [
 
 [[package]]
 name = "compliance-trestle"
-version = "3.7.0"
+version = "3.8.0"
 description = "Tools to manage & autogenerate python objects representing the OSCAL layers/models"
 optional = false
 python-versions = "*"
 files = [
-    {file = "compliance_trestle-3.7.0-py2.py3-none-any.whl", hash = "sha256:9d6da40e2261ef1fc275de70a38d628d4b1133c404d067ed7d1966f783848f2b"},
-    {file = "compliance_trestle-3.7.0.tar.gz", hash = "sha256:00ff741ba67d94b04ec9c9dd9ef6b3bd1c9a97c799b25b028462f49028d70cb2"},
+    {file = "compliance_trestle-3.8.0-py2.py3-none-any.whl", hash = "sha256:61dff81d5d1750b640b46fce443a60713ab21b606d3c62fe049f7c0be0ee7bb2"},
+    {file = "compliance_trestle-3.8.0.tar.gz", hash = "sha256:a8087e034c567b3f101108e02c20efd1ca2c8c395999b7291e8a30f3174786e1"},
 ]
 
 [package.dependencies]
@@ -3045,4 +3045,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "bf3849d77c4d9aed0ca33fcaa9cbb612faec2c7c990afdf1b25e1db1a72da50a"
+content-hash = "235c7c994bdde718df112f6998acb4636b835ef50cefc99acf0829017cf9258b"
