@@ -5,14 +5,18 @@
 import logging
 import os.path
 import pathlib
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional, Set
 
 from ruamel.yaml import YAML
+from ssg.constants import BENCHMARKS
 from ssg.profiles import ProfileSelections, get_profiles_from_products
+from ssg.rules import find_rule_dirs, get_rule_dir_id
 from ssg.variables import get_variable_options
+from trestle.common.const import RULE_ID
 from trestle.common.model_utils import ModelUtils
 from trestle.core.models.file_content_type import FileContentType
 from trestle.core.profile_resolver import ProfileResolver
+from trestle.oscal.common import Property
 from trestle.oscal.component import (
     ComponentDefinition,
     ControlImplementation,
@@ -126,6 +130,33 @@ class SyncOscalCdTask(TaskBase):
         )
         self.implemented_requirement_dict: Dict[str, ImplementedRequirement] = {}
         self.catalog_helper: CatalogControlResolver = CatalogControlResolver()
+        self.all_rule_ids_from_cac: List[str] = list()
+        self.rule_ids_from_oscal: Set[str] = set()
+
+    @staticmethod
+    def get_oscal_component_rule_ids(
+        component_props: Optional[List[Property]],
+    ) -> Set[str]:
+        r: Set[str] = set()
+        if not component_props:
+            return r
+        for prop in component_props:
+            if prop.name == RULE_ID:
+                r.add(prop.value)
+        return r
+
+    def get_all_cac_rule_ids(self) -> List[str]:
+        """
+        Get all rule id from cac content repo
+        """
+        r = list()
+        for benchmark in BENCHMARKS:
+            for rule_dir in find_rule_dirs(
+                str(self.cac_content_root.joinpath(benchmark).resolve())
+            ):
+                r.append(get_rule_dir_id(rule_dir))
+
+        return r
 
     @staticmethod
     def read_ordered_data_from_yaml(file_path: pathlib.Path) -> Any:
@@ -148,20 +179,18 @@ class SyncOscalCdTask(TaskBase):
             yaml.indent(mapping=4, sequence=4, offset=4)
         yaml.dump(data, file_path)
 
-    def _update_selections_rules_in_memory(
-        self, rule_list: List[str], add_params: bool = True
-    ) -> List[str]:
+    def _update_control_file_change_in_memory(
+        self, cac_control: Dict[str, Any], oscal_control: ImplementedRequirement
+    ) -> None:
         """
-        In memory update selections/rules field of cac content
-        return: policy id list
+        In memory update cac control file changes
         """
-        policy_ids = []
+        rule_list = populate_if_dict_field_not_exist(cac_control, "rules", [])
+
         removed_variable = []
+        cac_rule_list = []
         for rule_index, rule in enumerate(rule_list):
-            if ":" in rule:
-                # policy
-                policy_ids.append(rule.split(":", maxsplit=1)[0])
-            elif "=" in rule:
+            if "=" in rule:
                 # variable
                 v_id, v_value = rule.split("=")
                 if v_id in self.parameter_diff_info.parameters_update:
@@ -172,19 +201,70 @@ class SyncOscalCdTask(TaskBase):
                     removed_variable.append(rule)
             else:
                 # rule
-                pass
+                cac_rule_list.append(rule)
 
         # remove variables
         for v in removed_variable:
             rule_list.remove(v)
 
-        if not add_params:
-            return policy_ids
+        oscal_control_rules = [
+            prop.value for prop in oscal_control.props if prop.name == RULE_ID
+        ]
+        # remove rule
+        for rule in set(cac_rule_list).difference(set(oscal_control_rules)):
+            rule_list.remove(rule)
+
+        # add rule
+        for rule in set(oscal_control_rules).difference(set(cac_rule_list)):
+            if rule in self.all_rule_ids_from_cac:
+                rule_list.append(rule)
+            else:
+                logger.warning(
+                    f"rule {rule} not exists in cac content repo: {self.cac_content_root}"
+                )
+
+    def _update_profile_change_in_memory(
+        self, profile_data: Dict[str, Any]
+    ) -> List[str]:
+        """
+        In memory update cac profile changes
+        return: policy id list
+        """
+        selections = populate_if_dict_field_not_exist(profile_data, "selections", [])
+
+        policy_ids = []
+        removed_variable = []
+        removed_rules = []
+        for rule_index, rule in enumerate(selections):
+            if ":" in rule:
+                # policy
+                policy_ids.append(rule.split(":", maxsplit=1)[0])
+            elif "=" in rule:
+                # variable
+                v_id, v_value = rule.split("=")
+                if v_id in self.parameter_diff_info.parameters_update:
+                    # update variable
+                    for v in self.parameter_diff_info.parameters_update[v_id]:
+                        selections[rule_index] = f"{v_id}={v}"
+                elif v_id in self.parameter_diff_info.parameters_remove:
+                    removed_variable.append(rule)
+            else:
+                # rule
+                if rule not in self.rule_ids_from_oscal:
+                    removed_rules.append(rule)
+
+        # remove variables
+        for v in removed_variable:
+            selections.remove(v)
 
         # add variables
         for p in self.parameter_diff_info.parameters_add:
             for v in p.values:
-                rule_list.append(f"{p.param_id}={v}")
+                selections.append(f"{p.param_id}={v}")
+
+        # remove rules
+        for r in removed_rules:
+            selections.remove(r)
 
         return policy_ids
 
@@ -198,15 +278,13 @@ class SyncOscalCdTask(TaskBase):
             if sub_control:
                 self._handle_controls_field(sub_control)
 
-            if (
-                self.catalog_helper.get_id(control["id"])
-                not in self.implemented_requirement_dict
-            ):
+            oscal_control_id = self.catalog_helper.get_id(control["id"])
+
+            if oscal_control_id not in self.implemented_requirement_dict:
                 continue
 
-            # get rules field
-            rules = populate_if_dict_field_not_exist(control, "rules", [])
-            self._update_selections_rules_in_memory(rules, add_params=False)
+            oscal_control = self.implemented_requirement_dict[oscal_control_id]
+            self._update_control_file_change_in_memory(control, oscal_control)
 
     def sync_to_control_file(self, control_file_path: pathlib.Path) -> None:
         """
@@ -234,11 +312,8 @@ class SyncOscalCdTask(TaskBase):
         # get profile data from yaml
         profile_data = self.read_ordered_data_from_yaml(profile_path)
 
-        selections = populate_if_dict_field_not_exist(profile_data, "selections", [])
-
         # Handle selections field, update profile file
-        # handle variables
-        policy_ids = self._update_selections_rules_in_memory(selections)
+        policy_ids = self._update_profile_change_in_memory(profile_data)
 
         # save profile change
         self.write_ordered_data_to_yaml(profile_path, profile_data, is_profile=True)
@@ -283,6 +358,9 @@ class SyncOscalCdTask(TaskBase):
         else:
             raise RuntimeError(f"Component {self.product} not found in {cd_json_path}")
         logger.debug(f"Start to sync component {component.title}")
+
+        self.all_rule_ids_from_cac = self.get_all_cac_rule_ids()
+        self.rule_ids_from_oscal = self.get_oscal_component_rule_ids(component.props)
 
         # handle multiple control_implementations
         for control_implementation in component.control_implementations:
