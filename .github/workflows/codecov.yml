@@ -51,7 +51,7 @@ jobs:
           args: >
             -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.tests=tests/ -Dsonar.sources=trestlebot/  -Dsonar.python.version=3.10 -Dsonar.projectKey=rh-psce_trestle-bot -Dsonar.organization=rh-psce
       - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@f9fe214a5be5769c40619de2fff2726c36d2d5eb # pin@f9fe214a5be5769c40619de2fff2726c36d2d5eb
+        uses: sonarsource/sonarqube-quality-gate-action@df914238f99aa5d81f4490aeea80f205c7ed9600 # pin@f9fe214a5be5769c40619de2fff2726c36d2d5eb
         # Force to fail step after specific time
         timeout-minutes: 5
         env:
