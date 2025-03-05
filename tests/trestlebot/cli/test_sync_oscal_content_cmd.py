@@ -76,10 +76,11 @@ def test_sync_oscal_cd_to_cac_control(
     profile_data = yaml.load(profile_path)
     selections_field = profile_data["selections"]
     assert "abcd-levels:all:medium" in selections_field
-    assert "file_groupownership_sshd_private_key" in selections_field
+    assert "file_groupownership_sshd_private_key" not in selections_field
     assert "sshd_set_keepalive" in selections_field
     assert "var_password_pam_minlen=15" in selections_field
     assert "var_sshd_set_keepalive=1" not in selections_field
+    assert "no-exist-param=fips" not in selections_field
 
     # check control file
     control_file_path = pathlib.Path(
@@ -89,9 +90,11 @@ def test_sync_oscal_cd_to_cac_control(
     for control in control_file_data["controls"]:
         if control["id"] == "AC-1":
             rules = control.get("rules", [])
-            assert "file_groupownership_sshd_private_key" in rules
+            assert "file_groupownership_sshd_private_key" not in rules
             assert "var_system_crypto_policy=future" in rules
             assert "var_sshd_set_keepalive=1" not in rules
+            assert "not_exist_rule_id" not in rules
+            assert "configure_crypto_policy" in rules
         elif control["id"] == "AC-2":
             rules = control.get("rules", [])
             assert rules == []
