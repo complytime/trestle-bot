@@ -28,6 +28,8 @@ The `create ssp` command can be used to create a new [OSCAL System Security Plan
 
 The `sync-cac-content` command supports transforming the [Cac content](https://github.com/ComplianceAsCode/content) to OSCAL models in a trestle workspace. For detailed documentation on how to use, see the [sync-cac-content.md](./docs/tutorials/sync-cac-content.md).  
 
+The `sync-oscal-content` command supports sync OSCAL models to the [Cac content](https://github.com/ComplianceAsCode/content) in a trestle workspace. For detailed documentation on how to use, see the [sync-oscal-content.md](./docs/tutorials/sync-oscal-content.md).  
+
 
 Below is a table of the available commands and their current availability as a GitHub Action:
 
@@ -40,6 +42,7 @@ Below is a table of the available commands and their current availability as a G
 | `create ssp`                            |                              |
 | `sync-cac-content component-definition` |                              |
 | `sync-cac-content profile`              |                              |
+| `sync-oscal-content cac-control`        |                              |
 
 For detailed documentation on how to use each action, see the README.md in each folder under [actions](./actions/).
 
