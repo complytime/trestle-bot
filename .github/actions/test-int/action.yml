@@ -1,0 +1,24 @@
+name: "integration test"
+description: "Composite action for trestle-bot end-to-end tests."
+
+inputs:
+  build:
+    description: "Whether to build the image before testing."
+    required: false
+    default: "true"
+  image:
+    description: |
+      "Name of the trestlebot image you want to test if pre-existing. Required if build is false."
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up poetry and install
+      uses: ./.github/actions/setup-poetry
+      with:
+        python-version: "3.9"
+
+    - name: Run tests
+      run: make test-int
+      shell: bash

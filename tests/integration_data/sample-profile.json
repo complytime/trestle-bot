@@ -1,0 +1,29 @@
+{
+  "profile": {
+    "uuid": "0c546fdb-f2d2-4c94-8a03-32b86d37800b",
+    "metadata": {
+      "title": "Example Profile (low)",
+      "last-modified": "2025-02-05T08:56:16.664181-05:00",
+      "version": "REPLACE_ME",
+      "oscal-version": "1.1.2"
+    },
+    "imports": [
+      {
+        "href": "file://controls/sample-catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+              "most_important_requirement"
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "combine": {
+        "method": "merge"
+      },
+      "as-is": true
+    }
+  }
+}
