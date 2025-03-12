@@ -1,0 +1,43 @@
+{
+  "catalog": {
+    "uuid": "f9f5bc95-489c-4e1c-b053-b10456050d3e",
+    "metadata": {
+      "title": "Catalog for anssi",
+      "last-modified": "2025-02-26T18:38:40.384933+08:00",
+      "version": "REPLACE_ME",
+      "oscal-version": "1.1.2"
+    },
+    "params": [],
+    "groups": [
+      {
+        "id": "r1",
+        "title": "REPLACE_ME",
+        "controls": [
+          {
+            "id": "r1",
+            "class": "CAC_IMPORT",
+            "title": "Hardware Support",
+            "params": [],
+            "props": [
+              {
+                "name": "label",
+                "value": "R1"
+              },
+              {
+                "name": "sort-id",
+                "value": "r1"
+              }
+            ],
+            "parts": [
+              {
+                "id": "r1_smt",
+                "name": "statement"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+

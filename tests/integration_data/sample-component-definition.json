@@ -1,0 +1,110 @@
+{
+  "component-definition": {
+    "uuid": "7791eb3a-764a-41e0-8cd3-8d775c9e95bf",
+    "metadata": {
+      "title": "My sample component definition.",
+      "last-modified": "2023-02-21T06:53:42+00:00",
+      "version": "0.1.0",
+      "oscal-version": "1.1.2"
+    },
+    "components": [
+      {
+        "uuid": "7390f05c-d2b9-41d5-bf5f-3e6b17032d25",
+        "type": "software",
+        "title": "My Software",
+        "description": "My target software for validation.",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "set_password_hashing_algorithm_logindefs",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "This rule ensures that the password hashing algorithm is set in login.defs",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "package_telnet-server_removed",
+            "remarks": "rule_set_01"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "This rule ensures that telnet-server package is removed",
+            "remarks": "rule_set_01"
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "bb6420f5-146c-44c0-b708-79b96e7a009e",
+            "source": "file://controls/sample-profile.json",
+            "description": "My example profile.",
+            "props": [
+              {
+                "name": "Framework_Short_Name",
+                "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                "value": "example"
+              }
+            ],
+            "implemented-requirements": [
+              {
+                "uuid": "ed2ac4e9-d16a-4fc5-bd3a-13484b6d8fef",
+                "control-id": "most_important_requirement",
+                "description": "My example implemented requirement.",
+                "props": [
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "set_password_hashing_algorithm_logindefs"
+                  },
+                  {
+                    "name": "Rule_Id",
+                    "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+                    "value": "package_telnet-server_removed"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "b1c7a388-e8d4-4ff0-a249-0bb6686764cf",
+        "type": "validation",
+        "title": "openscap",
+        "description": "An example validation component for openscap-plugin",
+        "props": [
+          {
+            "name": "Rule_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "package_telnet-server_removed",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Rule_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "This rule ensures that telnet-server package is removed",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Check_Id",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "package_telnet-server_removed",
+            "remarks": "rule_set_00"
+          },
+          {
+            "name": "Check_Description",
+            "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
+            "value": "For OpenSCAP, the rule and the check share the same ID",
+            "remarks": "rule_set_00"
+          }
+        ]
+      }
+    ]
+  }
+}
