@@ -6,6 +6,7 @@ Integration tests for validating that trestle-bot output is consumable by comply
 """
 
 import logging
+
 import pytest
 
 
