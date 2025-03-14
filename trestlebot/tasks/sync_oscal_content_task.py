@@ -8,6 +8,7 @@ import pathlib
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 from ruamel.yaml import YAML
+from ruamel.yaml.comments import CommentedOrderedMap
 from ssg.constants import BENCHMARKS
 from ssg.profiles import ProfileSelections, get_profiles_from_products
 from ssg.rules import find_rule_dirs, get_rule_dir_id
@@ -28,7 +29,10 @@ from trestle.oscal.component import (
 from trestlebot.const import FRAMEWORK_SHORT_NAME, SUCCESS_EXIT_CODE
 from trestlebot.tasks.authored.profile import CatalogControlResolver
 from trestlebot.tasks.base_task import TaskBase
-from trestlebot.utils import populate_if_dict_field_not_exist
+from trestlebot.utils import (
+    get_comments_from_yaml_data,
+    populate_if_dict_field_not_exist,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -196,6 +200,36 @@ class SyncOscalCdTask(TaskBase):
 
         return removed_variable, update_variable_value
 
+    def _update_missing_rule_in_memory(
+        self, cac_control: CommentedOrderedMap, missing_rules: List[str]
+    ) -> None:
+        """
+        Add comment to control file for missing rule
+        """
+        # collect all comment in current control, to avoid add duplicate comment
+        exist_comments = get_comments_from_yaml_data(cac_control)
+
+        rule_list = cac_control["rules"]
+
+        # deal with missing rules
+        for missing_rule in missing_rules:
+            logger.warning(
+                f"rule {missing_rule} not exists in cac content repo: {self.cac_content_root}"
+                f" when trying to add to control: {cac_control['id']}"
+            )
+            comment = f"TODO need to implement rule {missing_rule}"
+            # check if missing rule comment already exists
+            if [True for c in exist_comments if comment in c]:
+                continue
+
+            # add comment for missing rule
+            if rule_list:
+                # rules field is non-empty
+                rule_list.yaml_set_comment_before_after_key(0, before=comment)
+            else:
+                # rules field is empty list
+                cac_control.yaml_set_comment_before_after_key("rules", before=comment)
+
     def _update_control_file_change_in_memory(
         self, cac_control: Dict[str, Any], oscal_control: ImplementedRequirement
     ) -> None:
@@ -226,18 +260,22 @@ class SyncOscalCdTask(TaskBase):
         # remove rule
         for rule in set(cac_rule_list).difference(set(oscal_control_rules)):
             rule_list.remove(rule)
+            logger.info(f"Remove rule {rule} from control: {cac_control['id']}")
 
         # add rule
+        missing_rules = []
         for rule in set(oscal_control_rules).difference(set(cac_rule_list)):
             if rule in self.all_rule_ids_from_cac:
                 rule_list.append(rule)
+                logger.info(f"Add rule {rule} to control: {cac_control['id']}")
             else:
-                logger.warning(
-                    f"rule {rule} not exists in cac content repo: {self.cac_content_root}"
-                )
+                missing_rules.append(rule)
+
+        # handle missing rule
+        self._update_missing_rule_in_memory(cac_control, missing_rules)
 
     def _update_profile_change_in_memory(
-        self, profile_data: Dict[str, Any]
+        self, profile_data: Dict[str, Any], profile_id: str
     ) -> List[str]:
         """
         In memory update cac profile changes
@@ -274,6 +312,7 @@ class SyncOscalCdTask(TaskBase):
         # remove rules
         for r in removed_rules:
             selections.remove(r)
+            logger.info(f"remove rule {r} from cac profile {profile_id}")
 
         return policy_ids
 
@@ -322,7 +361,7 @@ class SyncOscalCdTask(TaskBase):
         profile_data = self.read_ordered_data_from_yaml(profile_path)
 
         # Handle selections field, update profile file
-        policy_ids = self._update_profile_change_in_memory(profile_data)
+        policy_ids = self._update_profile_change_in_memory(profile_data, profile_id)
 
         # save profile change
         self.write_ordered_data_to_yaml(profile_path, profile_data, is_profile=True)

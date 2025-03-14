@@ -16,6 +16,7 @@ from trestlebot.cli.commands.sync_oscal_content import (
     sync_oscal_content_cmd,
 )
 from trestlebot.const import INVALID_ARGS_EXIT_CODE, SUCCESS_EXIT_CODE
+from trestlebot.utils import get_comments_from_yaml_data
 
 
 test_product = "rhel8"
@@ -89,6 +90,11 @@ def test_sync_oscal_cd_to_cac_control(
     control_file_data = yaml.load(control_file_path)
     for control in control_file_data["controls"]:
         if control["id"] == "AC-1":
+            # get comment, check if missing rule comment exists
+            exist_comments = get_comments_from_yaml_data(control)
+            assert len(exist_comments) == 1
+            comment = "TODO need to implement rule not_exist_rule_id"
+            assert len([True for c in exist_comments if comment in c]) == 1
             rules = control.get("rules", [])
             assert "file_groupownership_sshd_private_key" not in rules
             assert "var_system_crypto_policy=future" in rules
