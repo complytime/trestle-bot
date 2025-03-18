@@ -106,7 +106,11 @@ def control_cac_to_oscal(
                     f"{cac_control_id}_prm_{assignment_id}", ""
                 )
             oscal_control.parts.append(
-                common.Part(id=f"{cac_control_id}_smt", name=common_const.STATEMENT)
+                common.Part(
+                    id=f"{cac_control_id}_smt",
+                    name=common_const.STATEMENT,
+                    prose=cac_control.description,
+                )
             )
 
         guidance = re.search(
