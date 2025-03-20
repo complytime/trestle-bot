@@ -5,7 +5,7 @@ build-backend = 'poetry.core.masonry.api'
 
 [tool.poetry]
 name = 'trestlebot'
-version = "0.12.0"
+version = "0.13.0"
 description = "trestle-bot assists users in leveraging Compliance-Trestle in automated workflows of for OSCAL formatted compliance content management."
 
 authors = ["Jennifer Power <jpower@redhat.com>",]
