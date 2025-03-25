@@ -86,7 +86,7 @@ def test_sync_catalog_create(tmp_repo: Tuple[str, Repo]) -> None:
     assert catalog_path.exists(), f"Catalog {catalog_path} must exist"
     catalog_obj = Catalog.oscal_read(catalog_path)
     assert catalog_obj.metadata.title == f"Catalog for {test_cac_control}"
-    assert catalog_obj.metadata.oscal_version.__root__ == "1.1.2"
+    assert catalog_obj.metadata.oscal_version.__root__ == "1.1.3"
     assert catalog_obj.metadata.version == "REPLACE_ME"
     # (No top-level controls, all are in groups)
     assert sum([len(g.controls) for g in catalog_obj.groups]) == len(policy.controls)
@@ -135,7 +135,7 @@ def test_sync_catalog_create_real(tmp_repo: Tuple[str, Repo]) -> None:
     catalog_obj = Catalog.oscal_read(catalog_path)
 
     assert catalog_obj.metadata.title == f"Catalog for {ocp4_policy}"
-    assert catalog_obj.metadata.oscal_version.__root__ == "1.1.2"
+    assert catalog_obj.metadata.oscal_version.__root__ == "1.1.3"
     assert catalog_obj.metadata.version == "REPLACE_ME"
 
     # (No top-level controls, all are in groups)
