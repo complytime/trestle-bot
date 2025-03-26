@@ -3,15 +3,15 @@
 # Copyright (c) 2023 Red Hat, Inc.
 
 
-# Default entrypoint for trestlebot is autosync mode when run with python -m trestlebot
+# Default entrypoint for trestlebot is the root cmd when run with python -m trestlebot
 
-from trestlebot.entrypoints.init import main as init_main
+from trestlebot.cli.root import root_cmd
 
 
 def init() -> None:
-    """Initialize trestlebot"""
+    """trestlebot root"""
     if __name__ == "__main__":
-        init_main()
+        root_cmd()
 
 
 init()

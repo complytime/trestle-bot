@@ -179,6 +179,10 @@ class SyncCacCatalogTask(TaskBase):
             # 2. find the correct place in oscal
             # 2a. find the group
             group = None
+            # Warning: the line below is only compatible with pydantic 1
+            # and will need to be updated if trestle updates to pydantic 2
+            if Group.__fields__["id"].type_.regex.match(group_id) is None:
+                group_id = f"{policy.id}_{group_id}"
             for g in oscal_catalog.groups:
                 if g.id == group_id:
                     group = g
@@ -206,9 +210,12 @@ class SyncCacCatalogTask(TaskBase):
                             found = True
                             break
                     if not found:
-                        raise ValueError(
-                            "Nested control path before parent control definition"
-                        )
+                        # insert an empty parent control
+                        control = generate_sample_model(Control)
+                        control.controls = []
+                        control.id = parent_id
+                        parent.controls.append(control)
+                        parent = control
             # 4. Find the associated oscal control to the cac control
             # 4a. Map the cac control onto a new oscal control
             new_control = control_cac_to_oscal(

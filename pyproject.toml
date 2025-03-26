@@ -35,14 +35,14 @@ ssg = {git = "https://github.com/ComplianceasCode/content"}
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.0.0"
+flake8 = "^7.1.2"
 black = "^24.3.0"
 mypy = "^1.11.0"
 isort = "^5.13.2"
 safety = "^3.2.8"
 flake8-print = "^5.0.0"
 pre-commit = "^3.4.0"
-mkdocs-material = "^9.5.43"
+mkdocs-material = "^9.6.5"
 markdown-include = "^0.8.1"
 types-pyyaml = "^6.0.12.20240917"
 

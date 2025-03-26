@@ -13,8 +13,7 @@ import click
 from trestlebot import const
 from trestlebot.cli.options.common import common_options, git_options, handle_exceptions
 from trestlebot.cli.options.create import common_create_options
-from trestlebot.cli.utils import run_bot
-from trestlebot.entrypoints.entrypoint_base import comma_sep_to_list
+from trestlebot.cli.utils import comma_sep_to_list, run_bot
 from trestlebot.tasks.assemble_task import AssembleTask
 from trestlebot.tasks.authored.compdef import (
     AuthoredComponentDefinition,
