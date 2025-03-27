@@ -5,14 +5,14 @@
 import logging
 import os.path
 import pathlib
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
-from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap, CommentedOrderedMap
+from ruamel.yaml.scanner import ScannerError
 from ssg.constants import BENCHMARKS
 from ssg.profiles import ProfileSelections, get_profiles_from_products
 from ssg.rules import find_rule_dirs, get_rule_dir_id
-from ssg.variables import get_variable_options
+from ssg.variables import get_variable_files, get_variable_options
 from trestle.common.const import RULE_ID
 from trestle.common.model_utils import ModelUtils
 from trestle.core.models.file_content_type import FileContentType
@@ -32,6 +32,8 @@ from trestlebot.tasks.base_task import TaskBase
 from trestlebot.utils import (
     get_comments_from_yaml_data,
     populate_if_dict_field_not_exist,
+    read_cac_yaml_ordered,
+    write_cac_yaml_ordered,
 )
 
 
@@ -78,6 +80,26 @@ class ParameterDiffInfo:
     def parameters_remove(self) -> List[str]:
         return self._parameters_remove
 
+    def _add_new_option_to_var_file(self, var_id: str, var_value: str) -> None:
+        """
+        Add new option to var file
+        """
+        for v_file in get_variable_files(self.cac_content_root):
+            if f"{var_id}.var" in v_file:
+                try:
+                    data = read_cac_yaml_ordered(pathlib.Path(v_file))
+                    data["options"].update({var_value: var_value})
+                    write_cac_yaml_ordered(pathlib.Path(v_file), data)
+                    logger.info(
+                        f"Added new option {var_value}: {var_value} to {v_file}"
+                    )
+                except ScannerError:
+                    # currently some var file contains Jinja2 macros,
+                    # temporarily ignore this exception
+                    pass
+
+                break
+
     def validate_variables(self) -> None:
         """
         Validate new variables need to added/update exists in cac content, remove from parameters_add
@@ -96,20 +118,16 @@ class ParameterDiffInfo:
 
             for v in parameter.values:
                 if v not in all_options:
-                    logger.warning(
-                        f"variable {parameter.param_id} not have {v} option in cac content"
-                    )
-                    parameter.values.remove(v)
+                    # add new option to var file
+                    self._add_new_option_to_var_file(parameter.param_id, v)
 
         for param_id, param_values in self._parameters_update.items():
             all_options = get_variable_options(self.cac_content_root, param_id)
 
             for v in param_values:
                 if v not in all_options:
-                    logger.warning(
-                        f"variable {parameter.param_id} not have {v} option in cac content"
-                    )
-                    self._parameters_update[param_id].remove(v)
+                    # add new option to var file
+                    self._add_new_option_to_var_file(param_id, v)
 
     def __str__(self) -> str:
         return (
@@ -161,24 +179,6 @@ class SyncOscalCdTask(TaskBase):
                 r.append(get_rule_dir_id(rule_dir))
 
         return r
-
-    @staticmethod
-    def read_ordered_data_from_yaml(file_path: pathlib.Path) -> Any:
-        """
-        Read data from yaml file while preserving the order of dictionaries
-        """
-        yaml = YAML()
-        yaml.preserve_quotes = True
-        return yaml.load(file_path)
-
-    @staticmethod
-    def write_ordered_data_to_yaml(file_path: pathlib.Path, data: Any) -> None:
-        """
-        Serializes a Python object into a YAML stream, preserving the order of dictionaries.
-        """
-        yaml = YAML()
-        yaml.indent(mapping=4, sequence=6, offset=4)
-        yaml.dump(data, file_path)
 
     def _parse_single_variable(self, variable: str) -> Tuple[List[str], Optional[str]]:
         """
@@ -335,10 +335,10 @@ class SyncOscalCdTask(TaskBase):
         """
         Sync component definition data to control file
         """
-        control_file_data = self.read_ordered_data_from_yaml(control_file_path)
+        control_file_data = read_cac_yaml_ordered(control_file_path)
         controls = control_file_data.get("controls", [])
         self._handle_controls_field(controls)
-        self.write_ordered_data_to_yaml(control_file_path, control_file_data)
+        write_cac_yaml_ordered(control_file_path, control_file_data)
 
     def sync(self, profile_id: str) -> None:
         """
@@ -355,13 +355,13 @@ class SyncOscalCdTask(TaskBase):
         )
         # sync profile
         # get profile data from yaml
-        profile_data = self.read_ordered_data_from_yaml(profile_path)
+        profile_data = read_cac_yaml_ordered(profile_path)
 
         # Handle selections field, update profile file
         policy_ids = self._update_profile_change_in_memory(profile_data, profile_id)
 
         # save profile change
-        self.write_ordered_data_to_yaml(profile_path, profile_data)
+        write_cac_yaml_ordered(profile_path, profile_data)
 
         # sync control file
         for policy_id in policy_ids:
