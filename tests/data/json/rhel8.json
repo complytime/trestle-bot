@@ -174,7 +174,7 @@
               {
                 "param-id": "var_system_crypto_policy",
                 "values": [
-                  "future"
+                  "not-exist-option"
                 ]
               },
               {
