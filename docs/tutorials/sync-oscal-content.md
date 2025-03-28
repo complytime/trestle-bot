@@ -13,6 +13,7 @@ The CLI performs the following sync:
 - Sync OSCAL component definition parameters/rules changes to CaC content profile file
 - Sync OSCAL component definition parameters/rules changes to CaC content control file
 - Add a hint comment to the control file when a missing rule is found in the CaC content repo.
+- Add new option to cac var file when found variable exists but missing the option we sync.
 
 ### 1. Prerequisites
 
