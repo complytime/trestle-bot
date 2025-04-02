@@ -101,6 +101,14 @@ def test_sync_oscal_cd_to_cac_control(
             assert "var_sshd_set_keepalive=1" not in rules
             assert "not_exist_rule_id" not in rules
             assert "configure_crypto_policy" in rules
+            assert control["status"] == "not applicable"
         elif control["id"] == "AC-2":
             rules = control.get("rules", [])
             assert rules == []
+            assert control["status"] == "manual"
+            exist_comments = get_comments_from_yaml_data(control)
+            comment = (
+                "The status should be updated to one of "
+                "['inherently met', 'documentation', 'automated', 'supported']"
+            )
+            assert len([True for c in exist_comments if comment in c]) == 1
