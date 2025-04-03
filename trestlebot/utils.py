@@ -49,7 +49,7 @@ def get_comments_from_yaml_data(yaml_data: Any) -> List[str]:
 
 def read_cac_yaml_ordered(file_path: pathlib.Path) -> Any:
     """
-    Read data from cac content yaml file while preserving the order
+    Read data from CaC content yaml file while preserving the order
     """
     yaml = YAML()
     yaml.preserve_quotes = True
@@ -58,7 +58,7 @@ def read_cac_yaml_ordered(file_path: pathlib.Path) -> Any:
 
 def write_cac_yaml_ordered(file_path: pathlib.Path, data: Any) -> None:
     """
-    Serializes a Python object into a cac content YAML stream, preserving the order.
+    Serializes a Python object into a CaC content YAML stream, preserving the order.
     """
     yaml = YAML()
     yaml.indent(mapping=4, sequence=6, offset=4)

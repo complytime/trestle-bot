@@ -96,7 +96,9 @@ class ParameterDiffInfo:
                 except ScannerError:
                     # currently some var file contains Jinja2 macros,
                     # temporarily ignore this exception
-                    pass
+                    logger.warning(
+                        f"process {v_file} failed, this file may contains Jinja2 marcos"
+                    )
 
                 break
 
