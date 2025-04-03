@@ -24,7 +24,7 @@ trestlebot = "trestlebot.cli.root:root_cmd"
 [tool.poetry.dependencies]
 python = '^3.8.1'
 gitpython = "^3.1.41"
-compliance-trestle = "^3.8.0"
+compliance-trestle = "^3.8.1"
 github3-py = "^4.0.1"
 python-gitlab = "^4.2.0"
 ruamel-yaml = "^0.18.5"
