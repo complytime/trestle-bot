@@ -10,10 +10,19 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap, CommentedOrderedMap
 from ssg.constants import BENCHMARKS
+from ssg.controls import Status
 from ssg.profiles import ProfileSelections, get_profiles_from_products
 from ssg.rules import find_rule_dirs, get_rule_dir_id
 from ssg.variables import get_variable_options
-from trestle.common.const import RULE_ID
+from trestle.common.const import (
+    IMPLEMENTATION_STATUS,
+    RULE_ID,
+    STATUS_ALTERNATIVE,
+    STATUS_IMPLEMENTED,
+    STATUS_NOT_APPLICABLE,
+    STATUS_PARTIAL,
+    STATUS_PLANNED,
+)
 from trestle.common.model_utils import ModelUtils
 from trestle.core.models.file_content_type import FileContentType
 from trestle.core.profile_resolver import ProfileResolver
@@ -36,6 +45,20 @@ from trestlebot.utils import (
 
 
 logger = logging.getLogger(__name__)
+
+# OSCAL control status to cac control status mapping
+OSCAL_TO_CAC_STATUS_MAPPING = {
+    STATUS_IMPLEMENTED: [
+        Status.INHERENTLY_MET,
+        Status.DOCUMENTATION,
+        Status.AUTOMATED,
+        Status.SUPPORTED,
+    ],
+    STATUS_ALTERNATIVE: [Status.DOES_NOT_MEET, Status.MANUAL, Status.PENDING],
+    STATUS_PARTIAL: [Status.PARTIAL],
+    STATUS_NOT_APPLICABLE: [Status.NOT_APPLICABLE],
+    STATUS_PLANNED: [Status.PLANNED],
+}
 
 
 class ParameterDiffInfo:
@@ -227,6 +250,41 @@ class SyncOscalCdTask(TaskBase):
                 # rules field is empty list
                 cac_control.yaml_set_comment_before_after_key("rules", before=comment)
 
+    def _update_status(
+        self, cac_control: CommentedMap, oscal_control: ImplementedRequirement
+    ) -> None:
+        """
+        update cac control status according to OSCAL control status
+        """
+        oscal_status = None
+        for prop in oscal_control.props:
+            if prop.name == IMPLEMENTATION_STATUS:
+                oscal_status = prop.value
+
+        if oscal_status is None:
+            return
+
+        cac_status = cac_control["status"]
+        mapping_status = OSCAL_TO_CAC_STATUS_MAPPING[oscal_status]
+        if cac_status in mapping_status:
+            return
+        elif len(mapping_status) == 1:
+            cac_control["status"] = mapping_status[0]
+            logger.info(
+                f"Changing cac control {cac_control['id']} status to {mapping_status[0]}"
+            )
+        else:
+            # add comment
+            exist_comments = get_comments_from_yaml_data(cac_control)
+            comment = f"The status should be updated to one of {mapping_status}"
+            # check if comment already exists
+            if [True for c in exist_comments if comment in c]:
+                return
+            cac_control.yaml_set_comment_before_after_key("status", before=comment)
+            logger.info(
+                f"Adding comment to cac control {cac_control['id']} due to status change ambiguous"
+            )
+
     def _update_control_file_change_in_memory(
         self, cac_control: CommentedMap, oscal_control: ImplementedRequirement
     ) -> None:
@@ -270,6 +328,9 @@ class SyncOscalCdTask(TaskBase):
 
         # handle missing rule
         self._update_missing_rule_in_memory(cac_control, missing_rules)
+
+        # handle status change
+        self._update_status(cac_control, oscal_control)
 
     def _update_profile_change_in_memory(
         self, profile_data: CommentedMap, profile_id: str

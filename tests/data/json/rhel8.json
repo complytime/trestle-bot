@@ -199,7 +199,7 @@
                   {
                     "name": "implementation-status",
                     "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
-                    "value": "alternative",
+                    "value": "implemented",
                     "remarks": "REPLACE_ME"
                   }
                 ]
@@ -212,7 +212,7 @@
                   {
                     "name": "implementation-status",
                     "ns": "https://oscal-compass.github.io/compliance-trestle/schemas/oscal/cd",
-                    "value": "implemented"
+                    "value": "not-applicable"
                   },
                   {
                     "name": "Rule_Id",
