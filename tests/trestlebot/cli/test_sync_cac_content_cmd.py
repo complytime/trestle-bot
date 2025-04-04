@@ -60,7 +60,7 @@ def test_sync_catalog_create(tmp_repo: Tuple[str, Repo]) -> None:
             test_content_dir,
             "--repo-path",
             str(repo_path.resolve()),
-            "--policy-id",
+            "--cac-policy-id",
             test_cac_control,
             "--oscal-catalog",
             test_cac_control,
@@ -108,7 +108,7 @@ def test_sync_catalog_create_real(tmp_repo: Tuple[str, Repo]) -> None:
             test_content_dir,
             "--repo-path",
             str(repo_path.resolve()),
-            "--policy-id",
+            "--cac-policy-id",
             ocp4_policy,
             "--oscal-catalog",
             ocp4_policy,
@@ -167,7 +167,7 @@ def test_sync_catalog_update(tmp_repo: Tuple[str, Repo]) -> None:
             test_content_dir,
             "--repo-path",
             str(repo_path.resolve()),
-            "--policy-id",
+            "--cac-policy-id",
             test_cac_control,
             "--oscal-catalog",
             test_cat,
@@ -450,7 +450,7 @@ def test_profile_supplied(tmp_repo: Tuple[str, Repo]) -> None:
             test_product,
             "--oscal-catalog",
             test_cat,
-            "--policy-id",
+            "--cac-policy-id",
             test_policy_id,
             "--filter-by-level",
             "medium",
@@ -485,7 +485,7 @@ def test_created_oscal_profile(tmp_repo: Tuple[str, Repo]) -> None:
             test_product,
             "--oscal-catalog",
             test_cat,
-            "--policy-id",
+            "--cac-policy-id",
             test_policy_id,
             "--filter-by-level",
             test_level,
@@ -502,7 +502,7 @@ def test_created_oscal_profile(tmp_repo: Tuple[str, Repo]) -> None:
     )
     # Checking if CLI input created an OSCAL Profile
     # Asserting profile exists within the correct test profile path
-    # Profile should populate in profiles/{policy-id}-{filter-by-level}/profile.json
+    # Profile should populate in profiles/{cac-policy-id}-{filter-by-level}/profile.json
     assert result.exit_code == 0
     profile = repo_path.joinpath(test_prof_path)
     assert profile.exists()
@@ -521,7 +521,7 @@ def test_sync_missing_profile_option(tmp_repo: Tuple[str, Repo]) -> None:
             test_product,
             "--oscal-catalog",
             test_cat,
-            "--policy-id",
+            "--cac-policy-id",
             test_policy_id,
             "--filter-by-level",
             "all",

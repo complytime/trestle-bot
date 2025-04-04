@@ -60,7 +60,7 @@ poetry run trestlebot sync-cac-content profile \
 --cac-content-root ~/content \
 --product ocp4 \ 
 --oscal-catalog nist_rev5_800_53 \
---policy-id nist_ocp4 \ 
+--cac-policy-id nist_ocp4 \ 
 --committer-email test@redhat.com \
 --committer-name test \
 --branch main

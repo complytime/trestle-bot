@@ -49,7 +49,7 @@ def sync_cac_content_cmd(ctx: click.Context) -> None:
     required=True,
 )
 @click.option(
-    "--policy-id",
+    "--cac-policy-id",
     type=str,
     help="Policy id for source control file to transform from.",
     required=True,
@@ -63,7 +63,7 @@ def sync_cac_content_cmd(ctx: click.Context) -> None:
 def sync_cac_catalog_cmd(
     ctx: click.Context,
     cac_content_root: pathlib.Path,
-    policy_id: str,
+    cac_policy_id: str,
     oscal_catalog: str,
     **kwargs: Any,
 ) -> None:
@@ -72,7 +72,7 @@ def sync_cac_catalog_cmd(
     pre_tasks: List[TaskBase] = []
     sync_cac_content_task = SyncCacCatalogTask(
         cac_content_root=cac_content_root,
-        policy_id=policy_id,
+        policy_id=cac_policy_id,
         oscal_catalog=oscal_catalog,
         working_dir=working_dir,
     )
@@ -172,7 +172,7 @@ def sync_content_to_component_definition_cmd(ctx: click.Context, **kwargs: Any) 
     help="Main catalog href, or name of the catalog in trestle workspace.",
 )
 @click.option(
-    "--policy-id",
+    "--cac-policy-id",
     type=str,
     required=True,
     help="Policy id for source control file.",
@@ -202,7 +202,7 @@ def sync_cac_content_profile_cmd(
     cac_content_root = kwargs["cac_content_root"]
     product = kwargs["product"]
     oscal_catalog = kwargs["oscal_catalog"]
-    policy_id = kwargs["policy_id"]
+    policy_id = kwargs["cac_policy_id"]
     filter_by_level = kwargs.get("filter_by_level", list())
 
     # Getting the catalog as a path from user input
