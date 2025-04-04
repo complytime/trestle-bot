@@ -2,9 +2,10 @@
 # Copyright (c) 2024 Red Hat, Inc.
 
 """Common utility functions."""
+import pathlib
 from typing import Any, List
 
-from ruamel.yaml import CommentedMap, CommentToken
+from ruamel.yaml import YAML, CommentedMap, CommentToken
 
 
 def populate_if_dict_field_not_exist(
@@ -44,3 +45,21 @@ def get_comments_from_yaml_data(yaml_data: Any) -> List[str]:
                 comments.append(comment.value)
 
     return comments
+
+
+def read_cac_yaml_ordered(file_path: pathlib.Path) -> Any:
+    """
+    Read data from CaC content yaml file while preserving the order
+    """
+    yaml = YAML()
+    yaml.preserve_quotes = True
+    return yaml.load(file_path)
+
+
+def write_cac_yaml_ordered(file_path: pathlib.Path, data: Any) -> None:
+    """
+    Serializes a Python object into a CaC content YAML stream, preserving the order.
+    """
+    yaml = YAML()
+    yaml.indent(mapping=4, sequence=6, offset=4)
+    yaml.dump(data, file_path)

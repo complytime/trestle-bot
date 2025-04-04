@@ -97,10 +97,21 @@ def test_sync_oscal_cd_to_cac_control(
             assert len([True for c in exist_comments if comment in c]) == 1
             rules = control.get("rules", [])
             assert "file_groupownership_sshd_private_key" not in rules
-            assert "var_system_crypto_policy=future" in rules
+            assert "var_system_crypto_policy=not-exist-option" in rules
             assert "var_sshd_set_keepalive=1" not in rules
             assert "not_exist_rule_id" not in rules
             assert "configure_crypto_policy" in rules
         elif control["id"] == "AC-2":
             rules = control.get("rules", [])
             assert rules == []
+
+    # check var file
+    var_file_path = pathlib.Path(
+        os.path.join(
+            tmp_content_dir, "linux_os/guide/test/var_system_crypto_policy.var"
+        )
+    )
+    var_file_data = yaml.load(var_file_path)
+    options = var_file_data["options"]
+    assert "not-exist-option" in options
+    assert options["not-exist-option"] == "not-exist-option"
