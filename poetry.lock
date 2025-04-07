@@ -577,14 +577,14 @@ markers = {main = "platform_system == \"Windows\"", plugins = "platform_system =
 
 [[package]]
 name = "compliance-trestle"
-version = "3.8.0"
+version = "3.8.1"
 description = "Tools to manage & autogenerate python objects representing the OSCAL layers/models"
 optional = false
 python-versions = "*"
 groups = ["main", "plugins"]
 files = [
-    {file = "compliance_trestle-3.8.0-py2.py3-none-any.whl", hash = "sha256:61dff81d5d1750b640b46fce443a60713ab21b606d3c62fe049f7c0be0ee7bb2"},
-    {file = "compliance_trestle-3.8.0.tar.gz", hash = "sha256:a8087e034c567b3f101108e02c20efd1ca2c8c395999b7291e8a30f3174786e1"},
+    {file = "compliance_trestle-3.8.1-py2.py3-none-any.whl", hash = "sha256:4c434b26b134ebb690f12dbe070cbd77fdc6b4e920dbb37339fe7d4dd964265d"},
+    {file = "compliance_trestle-3.8.1.tar.gz", hash = "sha256:6d9667f3967f784952cd492530187580a0e8d41bf05385b3484ddf5fb50251e9"},
 ]
 
 [package.dependencies]
@@ -596,7 +596,7 @@ defusedxml = "*"
 furl = "*"
 ilcli = "*"
 importlib_resources = "*"
-Jinja2 = "3.1.4"
+Jinja2 = "3.1.6"
 openpyxl = ">=3.0,<4.0"
 orjson = "*"
 paramiko = "3.5.0"
@@ -1241,7 +1241,7 @@ version = "2.1.0"
 description = "brain-dead simple config-ini parsing"
 optional = false
 python-versions = ">=3.8"
-groups = ["dev", "tests"]
+groups = ["tests"]
 files = [
     {file = "iniconfig-2.1.0-py3-none-any.whl", hash = "sha256:9deba5723312380e77435581c6bf4935c94cbfab9b1ed33ef8d238ea168eb760"},
     {file = "iniconfig-2.1.0.tar.gz", hash = "sha256:3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7"},
@@ -1264,14 +1264,14 @@ colors = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "jinja2"
-version = "3.1.4"
+version = "3.1.6"
 description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev", "plugins"]
 files = [
-    {file = "jinja2-3.1.4-py3-none-any.whl", hash = "sha256:bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d"},
-    {file = "jinja2-3.1.4.tar.gz", hash = "sha256:4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"},
+    {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
+    {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
 ]
 
 [package.dependencies]
@@ -3138,4 +3138,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.8.1"
-content-hash = "053073df02ed75ccf4b568ede24d29b787760c2b13cd1b5a32f9708df69a65c7"
+content-hash = "5f7866f5c7d077e343aaa89d098fdf09e3de0a970d3987155ca6464b626d0269"
