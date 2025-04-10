@@ -109,36 +109,7 @@ def complytime_home() -> YieldFixture[Path]:
             )
 
         # Install complytime
-        Path(complytime_home / "bin/").mkdir(parents=True, exist_ok=True)
-        Path(complytime_home / ".config/complytime/plugins/").mkdir(
-            parents=True, exist_ok=True
-        )
-        Path(complytime_home / ".config/complytime/bundles/").mkdir(
-            parents=True, exist_ok=True
-        )
-        Path(complytime_home / ".config/complytime/controls/").mkdir(
-            parents=True, exist_ok=True
-        )
-        shutil.move(complytime_home / "complytime", complytime_home / "bin/complytime")
-        shutil.move(
-            complytime_home / "openscap-plugin",
-            complytime_home / ".config/complytime/plugins/openscap-plugin",
-        )
-        openscap_plugin_sha256 = sha256sum(
-            complytime_home / ".config/complytime/plugins/openscap-plugin"
-        )
-
-        with open(
-            int_test_data_dir / "c2p-openscap-manifest.json"
-        ) as c2p_openscap_manifest_file:
-            c2p_openscap_manifest = json.load(c2p_openscap_manifest_file)
-            c2p_openscap_manifest["sha256"] = openscap_plugin_sha256
-            with open(
-                complytime_home
-                / ".config/complytime/plugins/c2p-openscap-manifest.json",
-                "w",
-            ) as templated_file:
-                json.dump(c2p_openscap_manifest, templated_file)
+        install_complytime(complytime_home)
 
         # Create dummy base files
         shutil.copy(
@@ -175,3 +146,34 @@ def complytime_home() -> YieldFixture[Path]:
     else:
         os.environ["XDG_CONFIG_HOME"] = orig_xdg_config_home
     shutil.rmtree(complytime_home)
+
+
+def install_complytime(complytime_home: Path) -> None:
+    Path(complytime_home / "bin/").mkdir(parents=True, exist_ok=True)
+    Path(complytime_home / ".config/complytime/plugins/").mkdir(
+        parents=True, exist_ok=True
+    )
+    Path(complytime_home / ".config/complytime/bundles/").mkdir(
+        parents=True, exist_ok=True
+    )
+    Path(complytime_home / ".config/complytime/controls/").mkdir(
+        parents=True, exist_ok=True
+    )
+    shutil.move(complytime_home / "complytime", complytime_home / "bin/complytime")
+    shutil.move(
+        complytime_home / "openscap-plugin",
+        complytime_home / ".config/complytime/plugins/openscap-plugin",
+    )
+    openscap_plugin_sha256 = sha256sum(
+        complytime_home / ".config/complytime/plugins/openscap-plugin"
+    )
+    with open(
+        int_test_data_dir / "c2p-openscap-manifest.json"
+    ) as c2p_openscap_manifest_file:
+        c2p_openscap_manifest = json.load(c2p_openscap_manifest_file)
+        c2p_openscap_manifest["sha256"] = openscap_plugin_sha256
+        with open(
+            complytime_home / ".config/complytime/plugins/c2p-openscap-manifest.json",
+            "w",
+        ) as templated_file:
+            json.dump(c2p_openscap_manifest, templated_file)
