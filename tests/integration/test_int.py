@@ -9,7 +9,6 @@ import logging
 import os
 import pathlib
 import subprocess
-import sys
 from typing import Generator, Tuple, TypeVar
 
 import pytest
@@ -40,7 +39,6 @@ def test_complytime_setup() -> None:
     """Ensure that the complytime integration test setup works"""
     result = subprocess.run(
         ["complytime", "list", "--plain"],
-        # cwd=complytime_home,
         capture_output=True,
     )
     assert result.returncode == 0
@@ -48,7 +46,7 @@ def test_complytime_setup() -> None:
     assert b"Framework ID" in result.stdout
 
 
-# @pytest.mark.slow
+@pytest.mark.slow
 def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) -> None:
     repo_dir, _ = tmp_repo
     repo_path = pathlib.Path(repo_dir)
@@ -161,15 +159,8 @@ def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) ->
     ) as file:
         json.dump(new_cd_json, file)
 
-    # shutil.copy(component_definition, complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'catalogs/simplified_nist_catalog/catalog.json',
-    #   complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'profiles/simplified_nist_profile/profile.json',
-    #   complytime_home / '.config/complytime/controls/')
-
     result = subprocess.run(
         ["complytime", "list", "--plain"],
-        # cwd=complytime_home,
         capture_output=True,
     )
     assert result.returncode == 0
@@ -295,12 +286,6 @@ def test_compdef_type_software_sync(
         (complytime_home / ".config/complytime/bundles/component-definition.json"), "w"
     ) as file:
         json.dump(new_cd_json, file)
-
-    # shutil.copy(component_definition, complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'catalogs/simplified_nist_catalog/catalog.json',
-    #   complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'profiles/simplified_nist_profile/profile.json',
-    #   complytime_home / '.config/complytime/controls/')
 
     result = subprocess.run(
         ["complytime", "list", "--plain"],
@@ -433,15 +418,8 @@ def test_compdef_type_validation_sync(
     ) as file:
         json.dump(new_cd_json, file)
 
-    # shutil.copy(component_definition, complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'catalogs/simplified_nist_catalog/catalog.json',
-    #   complytime_home / '.config/complytime/bundles/')
-    # shutil.copy(pathlib.Path(repo_dir) / 'profiles/simplified_nist_profile/profile.json',
-    #   complytime_home / '.config/complytime/controls/')
-
     result = subprocess.run(
         ["complytime", "list", "--plain"],
-        # cwd=complytime_home,
         capture_output=True,
     )
     assert result.returncode == 0
