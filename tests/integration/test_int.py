@@ -6,10 +6,9 @@ Integration tests for validating that trestle-bot output is consumable by comply
 """
 import json
 import logging
-import os
 import pathlib
 import subprocess
-from typing import Generator, Tuple, TypeVar
+from typing import Tuple
 
 import pytest
 from click import BaseCommand
@@ -22,16 +21,10 @@ from trestlebot.cli.commands.sync_cac_content import (
     sync_content_to_component_definition_cmd,
 )
 
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 test_content_dir = TEST_DATA_DIR / "content_dir"
-
-T = TypeVar("T")
-YieldFixture = Generator[T, None, None]
-
-_TEST_PREFIX = "trestlebot_tests"
 
 
 @pytest.mark.slow
@@ -289,11 +282,8 @@ def test_compdef_type_software_sync(
 
     result = subprocess.run(
         ["complytime", "list", "--plain"],
-        # cwd=complytime_home,
         capture_output=True,
     )
-    print(result.stdout)
-    print(result.stderr)
     assert result.returncode == 0
     assert b"Title" in result.stdout
     assert b"Framework ID" in result.stdout
