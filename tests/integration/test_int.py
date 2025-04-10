@@ -21,6 +21,7 @@ from trestlebot.cli.commands.sync_cac_content import (
     sync_content_to_component_definition_cmd,
 )
 
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
