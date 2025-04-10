@@ -39,9 +39,9 @@ test-e2e:
 	@poetry run pytest $(TESTS)/$(E2E) --slow --cov --cov-config=pyproject.toml --cov-report=xml
 .PHONY: test-e2e
 
-test-int:
+test-integration:
 	@poetry run pytest tests/integration --slow --cov --cov-config=pyproject.toml --cov-report=xml
-.PHONY: test-int
+.PHONY: test-integration
 
 test-code-cov:
 	@poetry run pytest --cov=trestlebot --exitfirst --cov-config=pyproject.toml --cov-report=xml --cov-fail-under=80

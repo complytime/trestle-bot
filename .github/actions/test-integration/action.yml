@@ -17,8 +17,8 @@ runs:
     - name: Set up poetry and install
       uses: ./.github/actions/setup-poetry
       with:
-        python-version: "3.9"
+        python-version: "3.9" # least common denominator
 
     - name: Run tests
-      run: make test-int
+      run: make test-integration
       shell: bash
