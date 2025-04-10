@@ -29,6 +29,7 @@ test_content_dir = TEST_DATA_DIR / "content_dir"
 
 
 @pytest.mark.slow
+@pytest.mark.integration
 def test_complytime_setup() -> None:
     """Ensure that the complytime integration test setup works"""
     result = subprocess.run(
@@ -45,6 +46,7 @@ def test_complytime_setup() -> None:
 
 
 @pytest.mark.slow
+@pytest.mark.integration
 def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) -> None:
     repo_dir, _ = tmp_repo
     repo_path = pathlib.Path(repo_dir)
@@ -171,6 +173,7 @@ def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) ->
 
 
 @pytest.mark.slow
+@pytest.mark.integration
 def test_compdef_type_software_sync(
     tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path
 ) -> None:
@@ -303,6 +306,7 @@ def test_compdef_type_software_sync(
 
 
 @pytest.mark.slow
+@pytest.mark.integration
 def test_compdef_type_validation_sync(
     tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path
 ) -> None:
