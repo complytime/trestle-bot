@@ -165,11 +165,11 @@ def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) ->
     )
     assert result.returncode == 0
     assert b"Title" in result.stdout
-    assert b"Example Profile (low)" in result.stdout
+    assert b"NIST Special Publication 800-53 Revision 5" in result.stdout
     assert b"Framework ID" in result.stdout
     assert b"example" in result.stdout
     assert b"Supported Components" in result.stdout
-    assert b"My Software" in result.stdout
+    assert b"rhel8, My Software" in result.stdout
 
 
 @pytest.mark.slow
@@ -298,11 +298,11 @@ def test_compdef_type_software_sync(
     )
     assert result.returncode == 0
     assert b"Title" in result.stdout
-    assert b"Example Profile (low)" in result.stdout
+    assert b"NIST Special Publication 800-53 Revision 5" in result.stdout
     assert b"Framework ID" in result.stdout
     assert b"example" in result.stdout
     assert b"Supported Components" in result.stdout
-    assert b"My Software" in result.stdout
+    assert b"rhel8, My Software" in result.stdout
 
 
 @pytest.mark.slow
