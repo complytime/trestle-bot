@@ -144,8 +144,9 @@ We encourage the use of type hints in Python code to enhance readability, mainta
 
 ### Running tests
 
-Run all tests with `make test` or `make test-slow` to run all tests including end-to-end.
-For information on end-to-end tests, see [README.md](./tests/e2e/README.md).
+* `make test`:  Run unit tests
+* `make test-slow`: Run all tests including end-to-end. For information on end-to-end tests, see the e2e [README.md](./tests/e2e/README.md).
+* `make test-integration`: Run integration tests, which may be slow and also make network requests. For information on integration tests, see the integration [README.md](./tests/integration/README.md).
 
 #### Running tests with make
 ```bash
@@ -155,6 +156,7 @@ make test-slow
 
 # Run specific tests
 make test-e2e
+make test-integration
 ```
 
 #### Run with poetry
