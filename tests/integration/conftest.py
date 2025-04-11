@@ -27,13 +27,18 @@ YieldFixture = Generator[T, None, None]
 
 def is_complytime_installed(install_dir: Path) -> bool:
     install_dir / ".config/complytime"
+    complytime_bin = install_dir / "bin" / "complytime"
     openscap_plugin_bin = (
         install_dir / ".config/complytime/plugins/openscap-plugin"
     ).resolve()
     openscap_plugin_conf = (
         install_dir / ".config/complytime/plugins/c2p-openscap-manifest.json"
     ).resolve()
-    return openscap_plugin_bin.exists() and openscap_plugin_conf.exists()
+    return (
+        complytime_bin.exists()
+        and openscap_plugin_bin.exists()
+        and openscap_plugin_conf.exists()
+    )
 
 
 def is_complytime_cached(download_dir: Path) -> bool:
