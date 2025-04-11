@@ -83,7 +83,7 @@ jobs:
       - name: Set environment information for schedule
         if: ${{ steps.check_event.outputs.event_type == 'schedule' }}
         run: |
-          LATEST_VERSION=$( gh release view --json tagName --jq '.["tagName"]' )      
+          LATEST_VERSION=$(curl --silent -m 10 --connect-timeout 5 https://api.github.com/repos/complytime/trestle-bot/releases/latest | jq -r .tag_name)      
           {
             echo "TAG=$LATEST_VERSION"
             echo "NO_CACHE=true"
