@@ -73,7 +73,9 @@ def main():
 
 
 def extract_owner_repo(repo_url):
-    parts = repo_url.rstrip(".git").split("/")
+    if repo_url.endswith(".git"):
+        repo_url = repo_url[:-4]
+    parts = repo_url.split("/")
     owner = parts[-2]
     repo = parts[-1]
     return owner, repo
