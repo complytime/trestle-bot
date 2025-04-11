@@ -80,7 +80,9 @@ def complytime_home() -> YieldFixture[Path]:
             )
             if result.returncode != 0:
                 raise ValueError(
-                    f"Unable to install ComplyTime for integration test!\n{result.stdout}\n{result.stderr}"
+                    "Unable to install ComplyTime for integration test!"
+                    f"\n{result.stdout}"
+                    f"\n{result.stderr}"
                 )
         result = subprocess.run(
             [
