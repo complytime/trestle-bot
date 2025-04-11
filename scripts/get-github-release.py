@@ -14,9 +14,9 @@ import urllib.parse
 CHUNK_SIZE = 8192
 
 
-def _print(message):
+def _print(*args, **kwargs):
     """Wrap print to disable flake8 errors in one place"""
-    print(message)  # noqa: T201
+    print(*args, **kwargs)  # noqa: T201
 
 
 def parse_args():
