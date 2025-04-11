@@ -45,7 +45,6 @@ def main():
         list_all_releases(releases)
         return
 
-    release_info = None
     if args.tag:
         release_info = find_release_by_tag(releases, args.tag)
     elif args.prerelease:
@@ -82,14 +81,9 @@ def extract_owner_repo(repo_url):
 
 def fetch_releases(owner, repo):
     url = f"https://api.github.com/repos/{owner}/{repo}/releases"
-    # response = requests.get(url)
-    # if response.status_code != 200:
-    #     _print(f"Error fetching releases: {body}", file=sys.stderr)
-    #     exit(1)
     req = urllib.request.Request(url)
     try:
         response = urllib.request.urlopen(req)  # nosemgrep
-        # response_headers = response.info()
         body_bytes = response.read()
         body = body_bytes.decode("utf-8")
     except urllib.error.HTTPError as e:
