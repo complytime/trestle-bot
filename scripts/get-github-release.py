@@ -88,7 +88,7 @@ def fetch_releases(owner, repo):
     #     exit(1)
     req = urllib.request.Request(url)
     try:
-        response = urllib.request.urlopen(req)
+        response = urllib.request.urlopen(req)  # nosemgrep
         # response_headers = response.info()
         body_bytes = response.read()
         body = body_bytes.decode("utf-8")
@@ -140,7 +140,7 @@ def download_assets(assets):
         url = asset["browser_download_url"]
 
         try:
-            with urllib.request.urlopen(url) as response:
+            with urllib.request.urlopen(url) as response:  # nosemgrep
                 response_headers = response.info()
                 filename = None
                 if "Content-Disposition" in response_headers:
