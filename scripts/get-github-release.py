@@ -89,10 +89,13 @@ def fetch_releases(owner, repo):
         body_bytes = response.read()
         body = body_bytes.decode("utf-8")
     except urllib.error.HTTPError as e:
-        _print(f"Error fetching releases: [{e.code}]: {e}", file=sys.stderr)
+        _print(
+            f"Non-successful HTTP response code from server: [{e.code}]: {e}",
+            file=sys.stderr,
+        )
         exit(1)
     except urllib.error.URLError as e:
-        _print(f"Error fetching releases: [{e.reason}]: {e}", file=sys.stderr)
+        _print(f"Unable to send request to server: [{e.reason}]: {e}", file=sys.stderr)
         exit(1)
     return json.loads(body)
 
@@ -155,11 +158,15 @@ def download_assets(assets):
                         file.write(chunk)
                 _print(f"Downloaded {filename}")
         except urllib.error.HTTPError as e:
-            _print(f"Error downloading {asset['name']}: {e.code}: {e}", file=sys.stderr)
+            _print(
+                f"Non-successful HTTP response code from server {asset['name']}: {e.code}: {e}",
+                file=sys.stderr,
+            )
             exit(1)
         except urllib.error.URLError as e:
             _print(
-                f"Error downloading {asset['name']}: [{e.reason}]: {e}", file=sys.stderr
+                f"Unable to send request to server {asset['name']}: [{e.reason}]: {e}",
+                file=sys.stderr,
             )
             exit(1)
 
