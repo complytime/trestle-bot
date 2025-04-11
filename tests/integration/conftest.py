@@ -33,11 +33,7 @@ def is_complytime_installed(install_dir: Path) -> bool:
     openscap_plugin_conf = (
         install_dir / ".config/complytime/plugins/c2p-openscap-manifest.json"
     ).resolve()
-    if not openscap_plugin_bin.exists():
-        return False
-    if not openscap_plugin_conf.exists():
-        return False
-    return True
+    return openscap_plugin_bin.exists() and openscap_plugin_conf.exists()
 
 
 def is_complytime_cached(download_dir: Path) -> bool:
