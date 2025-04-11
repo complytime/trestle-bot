@@ -105,7 +105,7 @@ def complytime_home() -> YieldFixture[Path]:
         )
         if result.returncode != 0:
             raise ValueError(
-                f"Unable to extract ComplyTime for int test!\n{result.stdout}\n{result.stderr}"
+                f"Unable to extract ComplyTime for integration test!\n{result.stdout}\n{result.stderr}"
             )
 
         # Install complytime
