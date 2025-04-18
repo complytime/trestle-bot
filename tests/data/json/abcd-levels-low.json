@@ -1,0 +1,28 @@
+{
+  "profile": {
+    "uuid": "b3597c30-5c16-4759-986b-33dc2ecd4691",
+    "metadata": {
+      "title": "abcd-levels-low",
+      "last-modified": "2025-04-15T17:17:47.843987+08:00",
+      "version": "REPLACE_ME",
+      "oscal-version": "1.1.3"
+    },
+    "imports": [
+      {
+        "href": "trestle://catalogs/simplified_nist_catalog/catalog.json",
+        "include-controls": [
+          {
+            "with-ids": [
+            ]
+          }
+        ]
+      }
+    ],
+    "merge": {
+      "combine": {
+        "method": "merge"
+      },
+      "as-is": true
+    }
+  }
+}

@@ -33,17 +33,18 @@ The `sync-oscal-content` command supports sync OSCAL models to the [CaC content]
 
 Below is a table of the available commands and their current availability as a GitHub Action:
 
-| Command                                 | Available as a GitHub Action |
-|-----------------------------------------|------------------------------|
-| `autosync`                              | &#10003;                     |
-| `rules-transform`                       | &#10003;                     |                   
-| `create compdef`                        | &#10003;                     |
-| `sync-upstreams`                        | &#10003;                     |
-| `create ssp`                            |                              |
-| `sync-cac-content component-definition` |                              |
-| `sync-cac-content profile`              |                              |
-| `sync-cac-content catalog`              |                              |
-| `sync-oscal-content cac-control`        |                              |
+| Command                                   | Available as a GitHub Action |
+|-------------------------------------------|------------------------------|
+| `autosync`                                | &#10003;                     |
+| `rules-transform`                         | &#10003;                     |                   
+| `create compdef`                          | &#10003;                     |
+| `sync-upstreams`                          | &#10003;                     |
+| `create ssp`                              |                              |
+| `sync-cac-content component-definition`   |                              |
+| `sync-cac-content profile`                |                              |
+| `sync-cac-content catalog`                |                              |
+| `sync-oscal-content component-definition` |                              |
+| `sync-oscal-content profile`              |                              |
 
 For detailed documentation on how to use each action, see the README.md in each folder under [actions](./actions/).
 

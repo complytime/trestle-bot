@@ -97,7 +97,7 @@ def load_from_json(
     file_prefix: str,
     model_name: str,
     model_type: OscalBaseModel,
-) -> None:
+) -> pathlib.Path:
     """Load model from JSON test dir."""
     src_path = JSON_TEST_DATA_PATH / f"{file_prefix}.json"
     dst_path: pathlib.Path = ModelUtils.get_model_path_for_name_and_class(
@@ -105,6 +105,7 @@ def load_from_json(
     )
     dst_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src_path, dst_path)
+    return dst_path
 
 
 def load_from_yaml(
@@ -161,7 +162,7 @@ def setup_for_profile(
     tmp_trestle_dir: pathlib.Path, prof_name: str, output_name: str
 ) -> argparse.Namespace:
     """Setup trestle temp directory for profile testing."""
-    load_from_json(tmp_trestle_dir, prof_name, prof_name, prof.Profile)  # type: ignore
+    profile_path = load_from_json(tmp_trestle_dir, prof_name, prof_name, prof.Profile)  # type: ignore
 
     load_from_json(
         tmp_trestle_dir,
@@ -181,6 +182,7 @@ def setup_for_profile(
         sections=None,
         required_sections=None,
         allowed_sections=None,
+        profile_path=profile_path.resolve(),
     )
 
     return args

@@ -2,11 +2,11 @@
 
 This tutorial provides how to use `trestlebot sync-oscal-content` sync OSCAL models to [CaC content](https://github.com/ComplianceAsCode/content).
 
-Currently, this command has one sub-command: `cac-control`
+Currently, this command has two sub-command: `component-definition` and `profile`
 
-## cac-control
+## component-definition
 
-This command is to sync OSCAL Component Definition files to CaC content profile file and control files.
+This command is to sync OSCAL Component Definition information to CaC content side.
 
 The CLI performs the following sync:
 
@@ -26,9 +26,9 @@ decide. Discussion detail in [doc](https://github.com/complytime/trestle-bot/dis
 
 - Has an OSCAL Component Definition file, (transformed from CaC content using `sync-cac-content component-definition` cmd)
 
-### 2. Run the CLI sync-oscal-content cac-control
+### 2. Run the CLI sync-oscal-content component-definition
 ```shell
-poetry run trestlebot sync-oscal-content cac-control \ 
+poetry run trestlebot sync-oscal-content component-definition \ 
 --branch main \
 --cac-content-root $cac-content-dir \
 --committer-name test \
@@ -39,5 +39,39 @@ poetry run trestlebot sync-oscal-content cac-control \
 ```
 
 For more details about these options and additional flags, you can use the --help flag:
-`poetry run trestlebot sync-oscal-content cac-control --help'
+`poetry run trestlebot sync-oscal-content component-definition --help`
+This will display a full list of available options and their descriptions.
+
+
+## profile
+
+This command is to sync OSCAL profile information to CaC content side.
+
+The CLI performs the following sync:
+
+- Sync OSCAL profile control levels change to CaC control files
+
+### 1. Prerequisites
+
+- Initialize the [trestlebot workspace](../tutorials/github.md#3-initialize-trestlebot-workspace).
+
+- Pull the [CaC Content repository](https://github.com/ComplianceAsCode/content).
+
+- Have OSCAL profile file, (transformed from CaC content using `sync-cac-content profile` cmd)
+
+### 2. Run the CLI sync-oscal-content component-definition
+```shell
+poetry run trestlebot sync-oscal-content profile \
+--dry-run \
+--repo-path ~/trestlebot-workspace \
+--committer-email test@redhat.com \
+--committer-name test\
+--branch main \
+--cac-content-root ~/content \
+--cac-policy-id cis_rhel8 \
+--product rhel8
+```
+
+For more details about these options and additional flags, you can use the --help flag:
+`poetry run trestlebot sync-oscal-content profile --help`
 This will display a full list of available options and their descriptions.

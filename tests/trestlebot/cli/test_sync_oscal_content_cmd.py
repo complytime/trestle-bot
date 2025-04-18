@@ -2,6 +2,7 @@
 # Copyright (c) 2024 Red Hat, Inc.
 
 """Unit test for sync-cac-content command"""
+import json
 import os.path
 import pathlib
 from typing import Tuple
@@ -10,7 +11,12 @@ from click.testing import CliRunner
 from git import Repo
 from ruamel.yaml import YAML
 
-from tests.testutils import TEST_DATA_DIR, setup_for_cac_content_dir, setup_for_compdef
+from tests.testutils import (
+    TEST_DATA_DIR,
+    setup_for_cac_content_dir,
+    setup_for_compdef,
+    setup_for_profile,
+)
 from trestlebot.cli.commands.sync_oscal_content import (
     sync_oscal_cd_to_cac_content_cmd,
     sync_oscal_content_cmd,
@@ -126,19 +132,32 @@ def test_sync_oscal_cd_to_cac_control(
     assert options["not-exist-option"] == "not-exist-option"
 
 
-def test_invalid_sync_oscal_profile_cmd(tmp_repo: Tuple[str, Repo]) -> None:
-    """Tests sync OSCAL profile information to cac content."""
+def test_sync_oscal_profile_levels_low_to_high(
+    tmp_repo: Tuple[str, Repo], tmp_init_dir: str
+) -> None:
+    """
+    Tests sync OSCAL profile levels to cac content Control file,
+     levels change from low to high.
+    """
     repo_dir, _ = tmp_repo
     trestle_repo_path = pathlib.Path(repo_dir)
+    setup_for_profile(trestle_repo_path, "abcd-levels-low", "profile")
+    setup_for_profile(trestle_repo_path, "abcd-levels-medium", "profile")
+    setup_for_profile(trestle_repo_path, "abcd-levels-high", "profile")
+
+    tmp_content_dir = tmp_init_dir
+    setup_for_cac_content_dir(tmp_content_dir, test_content_dir)
 
     runner = CliRunner()
     result = runner.invoke(
         sync_oscal_profile_to_cac_content_cmd,
         [
             "--cac-policy-id",
-            "replace_me",
+            "abcd-levels",
+            "--product",
+            "rhel8",
             "--cac-content-root",
-            test_content_dir,
+            tmp_content_dir,
             "--repo-path",
             str(trestle_repo_path.resolve()),
             "--committer-email",
@@ -152,3 +171,101 @@ def test_invalid_sync_oscal_profile_cmd(tmp_repo: Tuple[str, Repo]) -> None:
     )
 
     assert result.exit_code == SUCCESS_EXIT_CODE, result.output
+
+    # check level change
+    yaml = YAML()
+    control_file_path = pathlib.Path(
+        os.path.join(tmp_content_dir, "controls", "abcd-levels.yml")
+    )
+    control_file_data = yaml.load(control_file_path)
+    for control in control_file_data["controls"]:
+        if control["id"] == "AC-1":
+            levels = control["levels"]
+            assert levels == ["high"]
+        elif control["id"] == "AC-2":
+            levels = control["levels"]
+            assert levels == ["high"]
+
+
+def test_sync_oscal_profile_levels_high_to_low(
+    tmp_repo: Tuple[str, Repo], tmp_init_dir: str
+) -> None:
+    """
+    Tests sync OSCAL profile levels to cac content Control file,
+     levels change from high to low.
+    """
+    repo_dir, _ = tmp_repo
+    trestle_repo_path = pathlib.Path(repo_dir)
+
+    args = setup_for_profile(trestle_repo_path, "abcd-levels-low", "profile")
+    # change low level profile for test
+    with open(args.profile_path) as f:
+        profile_data = json.load(f)
+
+    with open(args.profile_path, "w") as f:
+        profile_data["profile"]["imports"][0]["include-controls"][0]["with-ids"] = [
+            "ac-1"
+        ]
+        json.dump(profile_data, f, indent=2)
+
+    args = setup_for_profile(trestle_repo_path, "abcd-levels-medium", "profile")
+    # change medium level profile for test
+    with open(args.profile_path) as f:
+        profile_data = json.load(f)
+
+    with open(args.profile_path, "w") as f:
+        profile_data["profile"]["imports"][0]["include-controls"][0]["with-ids"] = [
+            "ac-1",
+            "ac-2",
+        ]
+        json.dump(profile_data, f, indent=2)
+    setup_for_profile(trestle_repo_path, "abcd-levels-high", "profile")
+
+    tmp_content_dir = tmp_init_dir
+    setup_for_cac_content_dir(tmp_content_dir, test_content_dir)
+    yaml = YAML()
+    # change control file for test
+    control_file_path = pathlib.Path(
+        os.path.join(tmp_content_dir, "controls", "abcd-levels.yml")
+    )
+    control_file_data = yaml.load(control_file_path)
+    for control in control_file_data["controls"]:
+        if control["id"] == "AC-1":
+            control["levels"] = ["high"]
+        elif control["id"] == "AC-2":
+            control["levels"] = ["high"]
+    yaml.dump(control_file_data, control_file_path)
+
+    runner = CliRunner()
+    result = runner.invoke(
+        sync_oscal_profile_to_cac_content_cmd,
+        [
+            "--cac-policy-id",
+            "abcd-levels",
+            "--product",
+            "rhel8",
+            "--cac-content-root",
+            tmp_content_dir,
+            "--repo-path",
+            str(trestle_repo_path.resolve()),
+            "--committer-email",
+            "test@email.com",
+            "--committer-name",
+            "test name",
+            "--branch",
+            "test",
+            "--dry-run",
+        ],
+    )
+
+    assert result.exit_code == SUCCESS_EXIT_CODE, result.output
+
+    # check level change
+    control_file_data = yaml.load(control_file_path)
+    for control in control_file_data["controls"]:
+        if control["id"] == "AC-1":
+            levels = control["levels"]
+            assert levels == ["low"]
+        elif control["id"] == "AC-2":
+            levels = control["levels"]
+            assert levels == ["medium"]
