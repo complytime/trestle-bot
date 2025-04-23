@@ -19,7 +19,7 @@ runs:
       shell: bash
 
     - name: Set up Python
-      uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # pin@v5
+      uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # pin@v5
       with:
         python-version: ${{ inputs.python-version }}
         cache: poetry
