@@ -297,7 +297,7 @@ class SyncCacCatalogTask(TaskBase):
 
         self._sync_catalog(oscal_catalog, policy)
 
-        # Ensure any empty values are set to one as these
+        # Ensure any empty values are set to None as these
         # lists cannot be empty
         oscal_catalog.params = none_if_empty(oscal_catalog.params)
         oscal_catalog.groups = none_if_empty(oscal_catalog.groups)
