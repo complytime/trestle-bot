@@ -15,6 +15,7 @@ from typing import List, Optional
 import ssg
 from ssg.controls import Policy
 from trestle.common import const as common_const
+from trestle.common.list_utils import none_if_empty
 from trestle.common.model_utils import ModelUtils
 from trestle.core.generators import generate_sample_model
 from trestle.core.models.file_content_type import FileContentType
@@ -125,6 +126,12 @@ def control_cac_to_oscal(
                     id=f"{cac_control_id}_gdn", name="guidance", prose=guidance.group(1)
                 )
             )
+
+    # Ensure any empty values are set to None as these
+    # lists cannot be empty
+    oscal_control.props = none_if_empty(oscal_control.props)
+    oscal_control.params = none_if_empty(oscal_control.params)
+    oscal_control.parts = none_if_empty(oscal_control.parts)
     return oscal_control
 
 
@@ -289,6 +296,11 @@ class SyncCacCatalogTask(TaskBase):
             # oscal_catalog.back_matter = None
 
         self._sync_catalog(oscal_catalog, policy)
+
+        # Ensure any empty values are set to one as these
+        # lists cannot be empty
+        oscal_catalog.params = none_if_empty(oscal_catalog.params)
+        oscal_catalog.groups = none_if_empty(oscal_catalog.groups)
 
         catalog_dir = pathlib.Path(os.path.dirname(oscal_json))
         catalog_dir.mkdir(exist_ok=True, parents=True)
