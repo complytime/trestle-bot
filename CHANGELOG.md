@@ -1,5 +1,73 @@
 # Changelog
 
+## [0.13.0](https://github.com/complytime/trestle-bot/compare/v0.12.0...v0.13.0) (2025-05-09)
+
+
+### Features
+
+* [CPLYTM-627] get mapping of profile and available control ([44828b5](https://github.com/complytime/trestle-bot/commit/44828b5bd8994c7d967991e8d9a91a4ce8c4bddd))
+* Add comment to corresponding control when find missing rule ([4aef7f0](https://github.com/complytime/trestle-bot/commit/4aef7f0f4a6e5e66d5b046983d376c3bbdd1f2f5))
+* add the function to get mapping of profile and available control ([7130541](https://github.com/complytime/trestle-bot/commit/71305410b2c9450511c77d2dbda3298b1d14dc7f))
+* CPLYTM-656 CPLYTM-655 Create non-exist variables value in cac side when sync OSCAL CD ([34345f9](https://github.com/complytime/trestle-bot/commit/34345f9455db05583ea0aaf13500d8a079775a7e))
+* CPLYTM-661, CPLYTM-662 sync OSCAL control status to cac control status ([8ae7701](https://github.com/complytime/trestle-bot/commit/8ae7701366fdc3a48943179ba5a7997d907ad646))
+* CPLYTM-663 add cmd for sync OSCAL profile information to cac content ([006fba1](https://github.com/complytime/trestle-bot/commit/006fba1b8aaeab710df959e737a7dbaf867c9838))
+* CPLYTM-665 CPLYTM-664 Implementation for sync-oscal-content profile command ([095b9a1](https://github.com/complytime/trestle-bot/commit/095b9a126a3a1dc558c520940ba1c3dab8a222af))
+* Implemented validate and sync rule function for sync-oscal-content command ([cb7ffa0](https://github.com/complytime/trestle-bot/commit/cb7ffa05ccbb1027f2a4cc8035f2ceebb4ab8199))
+* profile path resolved from cac profile name ([6b826ce](https://github.com/complytime/trestle-bot/commit/6b826ce6673d6cfe80c19d23e24c9669c182ec4b))
+* updating debug logs for path reference ([685683f](https://github.com/complytime/trestle-bot/commit/685683fe177616f2c93f529f1a59717592debcca))
+
+
+### Bug Fixes
+
+* add more specific assertions ([610c2e2](https://github.com/complytime/trestle-bot/commit/610c2e2ee9ac2463f2fbc423b157747b9b21f412))
+* check main binary in is_complytime_installed ([434ca80](https://github.com/complytime/trestle-bot/commit/434ca80b46bab3715d701a88e488c1e0596fd160))
+* comment typofix ([ed9838c](https://github.com/complytime/trestle-bot/commit/ed9838cf64b3f0d7cd09355ba9f002ee7856817e))
+* correcting unit test path reference ([94feff0](https://github.com/complytime/trestle-bot/commit/94feff0b41611a8347e6c819f2384fcced62e97b))
+* CPLYTM-563: profile path resolved from cac profile name ([71b4066](https://github.com/complytime/trestle-bot/commit/71b40667e7c8d0d19e4887c66fcedbf01ee0a600))
+* CPLYTM-710 updating logger statements ([778b529](https://github.com/complytime/trestle-bot/commit/778b5292b7469933c7c62b4231be354c3b6036e6))
+* disable irrelevant semgrep finding ([ad698cc](https://github.com/complytime/trestle-bot/commit/ad698cc405b366b21341b736c6fbda37e4cf39ea))
+* If OSCAL set-parameters filed is None, set to empty list ([eb75ae9](https://github.com/complytime/trestle-bot/commit/eb75ae9d66800fe151f0e779b64cab893d87a86a))
+* introducing oscal-profile specific compdef directories ([12bfa32](https://github.com/complytime/trestle-bot/commit/12bfa3220ef28ea95c700006f6f2ce786bd0c875))
+* remove dead code ([e3898f7](https://github.com/complytime/trestle-bot/commit/e3898f71b4d6b6fc5075d3910c8f3716e69dd787))
+* rstrip strips characters, not strings ([58a8832](https://github.com/complytime/trestle-bot/commit/58a88327db9150385bda0c009f81a7db2539817c))
+* terminal output suggestion ([9d206e7](https://github.com/complytime/trestle-bot/commit/9d206e793ec940e5ee313a92ac952e771f169da5))
+* tests updated to resolve cac profile ([65890ad](https://github.com/complytime/trestle-bot/commit/65890ad306c50b726e8d586829305ab81a2007e4))
+* updates logic to get release information ([#437](https://github.com/complytime/trestle-bot/issues/437)) ([93b910e](https://github.com/complytime/trestle-bot/commit/93b910edcc3f1afdceb7f3dc8ef8d1161932bb2a))
+* updates sync_cac_content_catalog task to set empty values to None ([5de9ac6](https://github.com/complytime/trestle-bot/commit/5de9ac6c2c7914a17a2607e7aaae0008e98bc79d))
+* updating if statement to extracting all controls ([50eadc1](https://github.com/complytime/trestle-bot/commit/50eadc148f80f6bbec061c992ebfd514710674ff))
+* updating reference to profile in tutorial ([59118f6](https://github.com/complytime/trestle-bot/commit/59118f6761633ce93d854d75328d2b1f4ac49368))
+* updating reference to profile in tutorial ([da69b8e](https://github.com/complytime/trestle-bot/commit/da69b8e2eef9f004873fc0e05528f97a425d0a24))
+* updating the tutorial for compdefs ([215244b](https://github.com/complytime/trestle-bot/commit/215244b30c74132d9fd1a23f0a396900debdea62))
+* use description from cac profile as prose ([#488](https://github.com/complytime/trestle-bot/issues/488)) ([d1db03f](https://github.com/complytime/trestle-bot/commit/d1db03f39616e929d7b8b47f1eb2c28b20fc2663))
+* wrap kwargs ([0abb078](https://github.com/complytime/trestle-bot/commit/0abb078fb6114bea9f9df87b50d7d9d55a0bf481))
+* yaml format error when sync OSCAL cd to CaC ([c50040e](https://github.com/complytime/trestle-bot/commit/c50040e8b570535264c2faf180662305a3b18cac))
+
+
+### Maintenance
+
+* add assert specificity ([5e2571c](https://github.com/complytime/trestle-bot/commit/5e2571c9ac697d06845d272436f804bb2e8e4084))
+* add detail to error message ([25f766d](https://github.com/complytime/trestle-bot/commit/25f766dab61852bde43f57a5d09902cd362129d9))
+* add get-github-release.sh script ([951c320](https://github.com/complytime/trestle-bot/commit/951c3209bfc899e56398ff301e7af475805a745b))
+* add integration mark ([b300549](https://github.com/complytime/trestle-bot/commit/b3005499baae266111c6efc3c9525031fa90371c))
+* add integration test stub ([a8e3da7](https://github.com/complytime/trestle-bot/commit/a8e3da71fdd7ad99a613eb9e76d0308140133be7))
+* add test cases ([1fba546](https://github.com/complytime/trestle-bot/commit/1fba54649738d59c4a4f7c1aa9d6fc1cca086a83))
+* CPLYTM-686 Remove duplicate catalog cmd ([37d4b7d](https://github.com/complytime/trestle-bot/commit/37d4b7da6eabfe483bccdaea4b76dc090a5c9bd4))
+* CPLYTM-687 rename --policy-id by --cac-policy-id to make it more intuitive ([04e079f](https://github.com/complytime/trestle-bot/commit/04e079f6a7bcb8881bce85429d186898702eb789))
+* disambiguate test-integration ([6960242](https://github.com/complytime/trestle-bot/commit/6960242161049c9509e905ebfa20a27405e1892a))
+* extract function ([abc5297](https://github.com/complytime/trestle-bot/commit/abc529790fa7ca0e58cd085ef397b8c9a731bca4))
+* format ([92d7608](https://github.com/complytime/trestle-bot/commit/92d7608ce3bd1dcbbf128f915228da338dc9621d))
+* get profiles and controls are impacted by a rule ([4804092](https://github.com/complytime/trestle-bot/commit/48040920be3b3213b442ca758c38e635211680a7))
+* get profiles and controls are impacted by a rule ([4f62857](https://github.com/complytime/trestle-bot/commit/4f628579da91974ec99a5132f4a2852a7808d36a))
+* lint line length ([5074d84](https://github.com/complytime/trestle-bot/commit/5074d84cbc4fae0959f55b03fe79fd0074f042e5))
+* port shell script to python ([c89d9c2](https://github.com/complytime/trestle-bot/commit/c89d9c2c678d92bb0964f2bfaf56a9a62bad37ec))
+* remove dead code ([0c59ac5](https://github.com/complytime/trestle-bot/commit/0c59ac5375d9f1b40a16c1f8d867ce9fb01df805))
+* remove dead code ([b297591](https://github.com/complytime/trestle-bot/commit/b297591782caf2462698eb0c787cb268fd88d656))
+* remove unused comments ([d8d5b1e](https://github.com/complytime/trestle-bot/commit/d8d5b1e182b159a034ed219e7d837f1f05707de6))
+* simplify return expression ([9e0dfff](https://github.com/complytime/trestle-bot/commit/9e0dfff4c5c424cca8f542c797513539bac43c9c))
+* update docs ([88dcbd4](https://github.com/complytime/trestle-bot/commit/88dcbd4d1950a39679d4752112e69c883bdffdb7))
+* update trestle version to 3.8.1 (fixes jinja vulns) ([#510](https://github.com/complytime/trestle-bot/issues/510)) ([d6653e5](https://github.com/complytime/trestle-bot/commit/d6653e5beb01f8847fcfc5281ae91e6b9e162c1c))
+* use renamed cac-policy-id arg ([d3a3c34](https://github.com/complytime/trestle-bot/commit/d3a3c34b313be8947f8142119d39083617038d31))
+
 ## [0.12.0](https://github.com/complytime/trestle-bot/compare/v0.11.0...v0.12.0) (2025-03-07)
 
 
