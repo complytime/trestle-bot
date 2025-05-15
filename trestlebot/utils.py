@@ -4,9 +4,11 @@
 """Common utility functions."""
 import os
 import pathlib
+import textwrap
 from typing import Any, List
 
 from ruamel.yaml import YAML, CommentedMap, CommentToken
+from ruamel.yaml.scalarstring import LiteralScalarString
 from ssg.controls import ControlsManager
 from ssg.products import load_product_yaml, product_yaml_path
 
@@ -100,3 +102,10 @@ def load_controls_manager(cac_content_root: str, product: str) -> ControlsManage
     control_mgr = ControlsManager(controls_dir, product_yaml)
     control_mgr.load()
     return control_mgr
+
+
+def to_literal_scalar_string(s: str) -> LiteralScalarString:
+    """
+    Convert a string to a literal scalar string.
+    """
+    return LiteralScalarString(textwrap.dedent(s))

@@ -23,7 +23,7 @@ from trestlebot.cli.commands.sync_oscal_content import (
     sync_oscal_profile_to_cac_content_cmd,
 )
 from trestlebot.const import INVALID_ARGS_EXIT_CODE, SUCCESS_EXIT_CODE
-from trestlebot.utils import get_comments_from_yaml_data
+from trestlebot.utils import get_comments_from_yaml_data, to_literal_scalar_string
 
 
 test_product = "rhel8"
@@ -118,6 +118,21 @@ def test_sync_oscal_cd_to_cac_control(
             assert "not_exist_rule_id" not in rules
             assert "configure_crypto_policy" in rules
             assert control["status"] == "not applicable"
+
+            # check notes
+            notes = control["notes"]
+            assert (
+                "Section a: AC-1(a) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
+            assert (
+                "Section b: AC-1(b) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
+            assert (
+                "Section c: AC-1(c) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
         elif control["id"] == "AC-2":
             rules = control.get("rules", [])
             assert rules == []
@@ -128,6 +143,8 @@ def test_sync_oscal_cd_to_cac_control(
                 "['inherently met', 'documentation', 'automated', 'supported']"
             )
             assert len([True for c in exist_comments if comment in c]) == 1
+            # check notes
+            assert not control.get("notes")
 
     # check var file
     var_file_path = pathlib.Path(
@@ -139,6 +156,94 @@ def test_sync_oscal_cd_to_cac_control(
     options = var_file_data["options"]
     assert "not-exist-option" in options
     assert options["not-exist-option"] == "not-exist-option"
+
+
+def test_sync_oscal_cd_statements(
+    tmp_repo: Tuple[str, Repo], tmp_init_dir: str
+) -> None:
+    """Tests sync OSCAL component definition information to cac content."""
+    repo_dir, _ = tmp_repo
+    trestle_repo_path = pathlib.Path(repo_dir)
+    setup_for_compdef(
+        trestle_repo_path,
+        test_product,
+        test_product,
+        model_name=os.path.join(test_product, test_profile_name),
+    )
+    tmp_content_dir = tmp_init_dir
+    setup_for_cac_content_dir(tmp_content_dir, test_content_dir)
+    # modify control file for statement sync testing
+    control_file = pathlib.Path(
+        os.path.join(tmp_content_dir, "controls", "abcd-levels.yml")
+    )
+    yaml = YAML()
+    data = yaml.load(control_file)
+
+    for control in data["controls"]:
+        if control["id"] == "AC-1":
+            control["notes"] = to_literal_scalar_string(
+                "OpenShift does not have the capability to create\n"
+                "guest/anonymous accounts or temporary accounts.\n"
+            )
+        if control["id"] == "AC-2":
+            control["notes"] = ""
+
+    yaml.dump(data, control_file)
+    runner = CliRunner()
+    result = runner.invoke(
+        sync_oscal_cd_to_cac_content_cmd,
+        [
+            "--product",
+            test_product,
+            "--oscal-profile",
+            test_profile_name,
+            "--cac-content-root",
+            tmp_content_dir,
+            "--repo-path",
+            str(trestle_repo_path.resolve()),
+            "--committer-email",
+            "test@email.com",
+            "--committer-name",
+            "test name",
+            "--branch",
+            "test",
+            "--dry-run",
+        ],
+    )
+
+    # Check the CLI sync-cac-content is successful
+    assert result.exit_code == SUCCESS_EXIT_CODE, result.output
+
+    yaml = YAML()
+
+    # check control file
+    control_file_path = pathlib.Path(
+        os.path.join(tmp_content_dir, "controls", "abcd-levels.yml")
+    )
+    control_file_data = yaml.load(control_file_path)
+    for control in control_file_data["controls"]:
+        if control["id"] == "AC-1":
+            # check notes
+            notes = control["notes"]
+            assert (
+                "Section a: AC-1(a) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
+            assert (
+                "Section b: AC-1(b) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
+            assert (
+                "Section c: AC-1(c) is an organizational control outside the "
+                "scope of OpenShift configuration." in notes
+            )
+            assert (
+                "OpenShift does not have the capability to create\n"
+                "guest/anonymous accounts or temporary accounts.\n" in notes
+            )
+        elif control["id"] == "AC-2":
+            # check notes
+            assert not control.get("notes")
 
 
 def test_sync_oscal_profile_levels_low_to_high(

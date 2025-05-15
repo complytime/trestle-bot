@@ -235,6 +235,11 @@
                     "statement-id": "ac-1_smt.b",
                     "uuid": "7f4d1616-a32f-4e5c-8c35-835bcc85b603",
                     "description": "AC-1(b) is an organizational control outside the scope of OpenShift configuration."
+                  },
+                  {
+                    "statement-id": "ac-1_smt.c",
+                    "uuid": "7f4d1616-a32f-4e5c-8c35-835bcc85b604",
+                    "description": "AC-1(c) is an organizational control outside the scope of OpenShift configuration."
                   }
                 ]
               }
