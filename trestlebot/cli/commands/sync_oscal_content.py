@@ -11,6 +11,7 @@ import click
 from trestlebot.cli.options.common import common_options, git_options, handle_exceptions
 from trestlebot.cli.utils import run_bot
 from trestlebot.tasks.base_task import TaskBase
+from trestlebot.tasks.sync_oscal_content_catalog_task import SyncOscalCatalogTask
 from trestlebot.tasks.sync_oscal_content_cd_task import SyncOscalCdTask
 from trestlebot.tasks.sync_oscal_content_profile_task import SyncOscalProfileTask
 
@@ -120,6 +121,49 @@ def sync_oscal_profile_to_cac_content_cmd(
         working_dir=working_dir,
         cac_policy_id=cac_policy_id,
         product=product,
+    )
+    pre_tasks.append(sync_cac_content_task)
+    # change working_dir to CaC content repo, since this task changing
+    # CaC content
+    kwargs["repo_path"] = str(cac_content_root.resolve())
+    result = run_bot(pre_tasks, kwargs)
+    logger.debug(f"Trestlebot results: {result}")
+
+
+@sync_oscal_content_cmd.command(
+    name="catalog",
+    help="Sync OSCAL catalog information to cac content.",
+)
+@click.pass_context
+@common_options
+@git_options
+@click.option(
+    "--cac-content-root",
+    help="Root of the CaC content project.",
+    type=click.Path(
+        exists=True, file_okay=False, dir_okay=True, path_type=pathlib.Path
+    ),
+    required=True,
+)
+@click.option(
+    "--cac-policy-id",
+    type=str,
+    required=True,
+    help="Policy id for source control file.",
+)
+def sync_oscal_catalog_to_cac_content_cmd(
+    ctx: click.Context,
+    cac_content_root: pathlib.Path,
+    cac_policy_id: str,
+    **kwargs: Any,
+) -> None:
+    """Sync OSCAL catalog to cac control file"""
+    working_dir = kwargs["repo_path"]  # From common_options
+    pre_tasks: List[TaskBase] = []
+    sync_cac_content_task = SyncOscalCatalogTask(
+        cac_content_root=cac_content_root,
+        working_dir=working_dir,
+        cac_policy_id=cac_policy_id,
     )
     pre_tasks.append(sync_cac_content_task)
     # change working_dir to CaC content repo, since this task changing
