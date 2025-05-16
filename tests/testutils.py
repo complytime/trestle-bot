@@ -25,6 +25,7 @@ from trestle.oscal import profile as prof
 
 from trestlebot.cli.log import configure_logger
 from trestlebot.const import YAML_EXTENSION
+from trestlebot.utils import to_literal_scalar_string
 
 
 TEST_DATA_DIR = pathlib.Path(__file__).parent.resolve() / "data/"
@@ -260,6 +261,11 @@ def setup_for_cac_content_dir(tmp_dir: str, cac_content_src_dir: pathlib.Path) -
             rules.append("file_groupownership_sshd_private_key")
             rules.append("var_sshd_set_keepalive=1")
             rules.append("var_system_crypto_policy=fips")
+        if control["id"] == "AC-2":
+            control["notes"] = to_literal_scalar_string(
+                "Section a: AC-1(a) is an organizational control outside"
+                " the scope of OpenShift configuration.\n"
+            )
 
     yaml.dump(data, abcd_levels_control_file_path)
 

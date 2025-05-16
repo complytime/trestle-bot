@@ -273,12 +273,13 @@ class SyncCacContentTask(TaskBase):
             self._add_response_by_status(implemented_req, oscal_status, REPLACE_ME)
             implemented_req.statements = list()
             for section_label, section_content in sections_dict.items():
-                statement_id = self.catalog_helper.get_id(
-                    f"{implemented_req.control_id}_smt.{section_label}"
-                )
-                if statement_id is None:
-                    continue
-
+                # comment these lines due to https://issues.redhat.com/browse/CPLYTM-781
+                # statement_id = self.catalog_helper.get_id(
+                #     f"{implemented_req.control_id}_smt.{section_label}"
+                # )
+                # if statement_id is None:
+                #     continue
+                statement_id = f"{implemented_req.control_id}_smt.{section_label}"
                 section_content_str = "\n".join(section_content)
                 section_content_str = pattern.sub("", section_content_str)
                 statement = self._create_statement(

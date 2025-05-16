@@ -5,6 +5,7 @@
 import logging
 import os.path
 import pathlib
+import re
 from typing import Dict, List, Optional, Set, Tuple
 
 from ruamel.yaml.comments import CommentedMap, CommentedOrderedMap
@@ -43,6 +44,7 @@ from trestlebot.utils import (
     get_field_comment,
     populate_if_dict_field_not_exist,
     read_cac_yaml_ordered,
+    to_literal_scalar_string,
     write_cac_yaml_ordered,
 )
 
@@ -293,6 +295,38 @@ class SyncOscalCdTask(TaskBase):
                 f"Adding comment to cac control {cac_control['id']} due to status change ambiguous"
             )
 
+    def _update_cac_notes(
+        self, cac_control: CommentedMap, oscal_control: ImplementedRequirement
+    ) -> None:
+        """
+        Sync OSCAL statements field to CaC notes field
+        """
+        notes = cac_control.get("notes")
+        if not notes and not oscal_control.statements:
+            return
+
+        statements = oscal_control.statements if oscal_control.statements else []
+
+        notes = populate_if_dict_field_not_exist(cac_control, "notes", "")
+        # combine OSCAL statements
+        combined_statements = "\n".join(
+            [
+                f"Section {statement.statement_id.split('_smt.')[-1]}: {statement.description}"
+                for statement in statements
+            ]
+        )
+
+        if re.search(r"Section ([a-zA-Z]):.+", notes):
+            cac_control["notes"] = to_literal_scalar_string(combined_statements)
+        else:
+            # keep old content if notes field do not contain Section xx content
+            if cac_control["notes"] and combined_statements:
+                cac_control["notes"] = to_literal_scalar_string(
+                    cac_control["notes"] + "\n" + combined_statements
+                )
+            elif not cac_control["notes"]:
+                cac_control["notes"] = to_literal_scalar_string(combined_statements)
+
     def _update_control_file_change_in_memory(
         self, cac_control: CommentedMap, oscal_control: ImplementedRequirement
     ) -> None:
@@ -349,6 +383,9 @@ class SyncOscalCdTask(TaskBase):
 
         # handle status change
         self._update_status(cac_control, oscal_control)
+
+        # Sync OSCAL statements field to CaC notes field
+        self._update_cac_notes(cac_control, oscal_control)
 
     def _update_profile_change_in_memory(
         self, profile_data: CommentedMap, profile_id: str
