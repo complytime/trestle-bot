@@ -18,6 +18,7 @@ from tests.testutils import (
     setup_for_profile,
 )
 from trestlebot.cli.commands.sync_oscal_content import (
+    sync_oscal_catalog_to_cac_content_cmd,
     sync_oscal_cd_to_cac_content_cmd,
     sync_oscal_content_cmd,
     sync_oscal_profile_to_cac_content_cmd,
@@ -278,3 +279,12 @@ def test_sync_oscal_profile_levels_high_to_low(
         elif control["id"] == "AC-2":
             levels = control["levels"]
             assert levels == ["medium"]
+
+
+def test_sync_oscal_catalog_cmd() -> None:
+    """Tests that sync-oscal-content catalog command."""
+    runner = CliRunner()
+    result = runner.invoke(sync_oscal_catalog_to_cac_content_cmd, ["invalid"])
+
+    assert "Error: Missing option" in result.output
+    assert result.exit_code == INVALID_ARGS_EXIT_CODE
