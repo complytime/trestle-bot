@@ -6,6 +6,7 @@ Integration tests for validating that trestle-bot output is consumable by comply
 """
 import json
 import logging
+import os
 import pathlib
 import subprocess
 from typing import Tuple
@@ -26,6 +27,9 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 test_content_dir = TEST_DATA_DIR / "content_dir"
+
+# Ask complytime to use home directory instead of hardcoded system paths
+os.putenv("COMPLYTIME_DEV_MODE", "1")
 
 
 @pytest.mark.slow
@@ -149,15 +153,16 @@ def test_full_sync(tmp_repo: Tuple[str, Repo], complytime_home: pathlib.Path) ->
     new_cd_json = json.loads(new_cd_json_text)
 
     with open(
-        (complytime_home / ".config/complytime/controls/catalog.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/catalog.json"), "w"
     ) as file:
         json.dump(new_cat_json, file)
     with open(
-        (complytime_home / ".config/complytime/controls/profile.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/profile.json"), "w"
     ) as file:
         json.dump(new_prof_json, file)
     with open(
-        (complytime_home / ".config/complytime/bundles/component-definition.json"), "w"
+        (complytime_home / ".local/share/complytime/bundles/component-definition.json"),
+        "w",
     ) as file:
         json.dump(new_cd_json, file)
 
@@ -284,15 +289,16 @@ def test_compdef_type_software_sync(
     new_cd_json = json.loads(new_cd_json_text)
 
     with open(
-        (complytime_home / ".config/complytime/controls/catalog.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/catalog.json"), "w"
     ) as file:
         json.dump(new_cat_json, file)
     with open(
-        (complytime_home / ".config/complytime/controls/profile.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/profile.json"), "w"
     ) as file:
         json.dump(new_prof_json, file)
     with open(
-        (complytime_home / ".config/complytime/bundles/component-definition.json"), "w"
+        (complytime_home / ".local/share/complytime/bundles/component-definition.json"),
+        "w",
     ) as file:
         json.dump(new_cd_json, file)
 
@@ -419,15 +425,16 @@ def test_compdef_type_validation_sync(
     new_cd_json = json.loads(new_cd_json_text)
 
     with open(
-        (complytime_home / ".config/complytime/controls/catalog.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/catalog.json"), "w"
     ) as file:
         json.dump(new_cat_json, file)
     with open(
-        (complytime_home / ".config/complytime/controls/profile.json"), "w"
+        (complytime_home / ".local/share/complytime/controls/profile.json"), "w"
     ) as file:
         json.dump(new_prof_json, file)
     with open(
-        (complytime_home / ".config/complytime/bundles/component-definition.json"), "w"
+        (complytime_home / ".local/share/complytime/bundles/component-definition.json"),
+        "w",
     ) as file:
         json.dump(new_cd_json, file)
 
