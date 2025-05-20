@@ -1,0 +1,978 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for trestle-bot.">
+      
+      
+      
+      
+        <link rel="prev" href="../troubleshooting/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Contributing - trestle-bot</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing-to-trestlebot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="trestle-bot" class="md-header__button md-logo" aria-label="trestle-bot" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            trestle-bot
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RedHatProductSecurity/trestle-bot/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trestle-bot
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Overview
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/github/" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="trestle-bot" class="md-nav__button md-logo" aria-label="trestle-bot" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    trestle-bot
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RedHatProductSecurity/trestle-bot/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trestle-bot
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Overview
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QuickStart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/diagrams/c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrams
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Contribute
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opening-a-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opening a Pull Request
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer Guide
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="contributing-to-trestlebot">Contributing to trestlebot</h1>
+<p>Thank you for your interest in the trestlebot project.</p>
+<p>Before you start contributing, please take a moment to read through the guide below.</p>
+<blockquote>
+<p>WARNING: This project is currently under initial development. APIs may be changed incompatibly from one commit to another.</p>
+</blockquote>
+<ul>
+<li><a href="#contributing-to-trestlebot">Contributing to trestlebot</a></li>
+<li><a href="#how-to-contribute">How To Contribute</a></li>
+<li><a href="#opening-a-pull-request">Opening a Pull Request</a></li>
+<li><a href="#developer-guide">Developer Guide</a><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#development-environment">Development Environment</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#code-structure">Code structure</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#architecture-decisions">Architecture Decisions</a></li>
+<li><a href="#update-the-actions-files">Update the <code>actions</code> files</a></li>
+<li><a href="#authoring-ci-workflows">Authoring CI Workflows</a></li>
+<li><a href="#license-text-in-files">License Text in Files</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#format-and-styling">Format and Styling</a></li>
+<li><a href="#type-hints-and-static-type-checking">Type Hints and Static Type Checking</a></li>
+<li><a href="#analysis-tools">Analysis Tools</a></li>
+<li><a href="#running-tests">Running tests</a></li>
+<li><a href="#running-tests-with-make">Running tests with make</a></li>
+<li><a href="#run-with-poetry">Run with poetry</a></li>
+<li><a href="#local-testing">Local testing</a></li>
+<li><a href="#release-process">Release Process</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="how-to-contribute">How To Contribute</h2>
+<p>Some initial contributions could be:</p>
+<ul>
+<li>Improving the documentation</li>
+<li>Adding test coverage</li>
+<li>Try out issues that have the label <code>good first issue</code></li>
+<li>Opening an issue for bugs or feature requests</li>
+</ul>
+<h2 id="opening-a-pull-request">Opening a Pull Request</h2>
+<p>When submitting a pull request, please follow these guidelines:</p>
+<ol>
+<li>Ensure that you have an issue submitted first and reference it in your pull request.</li>
+<li>Ensure that your code passes all CI tests.</li>
+<li>Please keep the pull request focused on a single issue or feature, if possible.</li>
+</ol>
+<h2 id="developer-guide">Developer Guide</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><a href="https://www.python.org/downloads/">Python</a> - v3.8+</li>
+<li><a href="https://python-poetry.org/">Poetry</a></li>
+<li><a href="https://podman.io/docs/installation">Podman</a> (Optional) - For testing locally and end-to-end tests</li>
+</ul>
+<h3 id="development-environment">Development Environment</h3>
+<p>For a reproducible development environment, we use Dev Containers. See <a href="./.devcontainer/devcontainer.json">devcontainer.json</a> for more information. Note that this does not include the <code>podman</code> installation to avoid the requirement for containers with elevated privileges.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>For workflow diagrams, see the <a href="./docs/workflows/">diagrams</a> under the <code>docs</code> folder.</p>
+<h4 id="components">Components</h4>
+<ol>
+<li>CI Provider - Runs or builds and runs trestle-bot container</li>
+<li>Trestle Bot - Provides logic for managing workspace and containerized environment for use in workflows</li>
+<li>Compliance-Trestle - Upstream library that provides core logic for how OSCAL content is managed</li>
+</ol>
+<h4 id="code-structure">Code structure</h4>
+<ul>
+<li><code>actions</code> - Provides specific logic for <code>trestle-bot</code> tasks that are packaged as Actions. See <a href="./actions/README.md">README.md</a> for more information.</li>
+<li><code>cli</code> - Provides top level logic for specific user-facing tasks. These tasks are not necessarily related so they are not organized into a hierarchical command structure, but they do share some common modules.</li>
+<li><code>cli/commands</code> - Provides top level logic for commands and their associated subcommands. The commands are accessed by the single entrypoint <code>root.py</code>.</li>
+<li><code>cli/options</code> - Provides command line options and arguments that are frequently used within <code>cli/commands</code>.</li>
+<li><code>provider.py, github.py, and gitlab.py</code> - Git provider abstract class and concrete implementations for interacting with the API.</li>
+<li><code>tasks</code> - Pre-tasks can be configured before the main git logic is run. Any task that does workspace management should go here.</li>
+<li><code>tasks/authored</code> - The <code>authored</code> package contains logic for managing authoring tasks for single instances of a top-level OSCAL model. These encapsulate logic from the <code>compliance-trestle</code> library and allows loose coupling between <code>tasks</code> and <code>authored</code> types.</li>
+<li><code>transformers</code> - This contains data transformation logic; specifically for rules.</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<h4 id="architecture-decisions">Architecture Decisions</h4>
+<p>We document decisions using <a href="http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions">Architectural Decision Records</a>. The team will decide when an ADR will be put in place, but this is generally done to document impactful architectural decisions.</p>
+<ul>
+<li>Create an instance of the ADR template using <code>trestle author docs create-sample -tn decisions -tr docs/architecture</code>.</li>
+<li>This can be tested locally via <code>trestle author docs validate --task-name decisions -hv -tr docs/architecture</code></li>
+</ul>
+<h4 id="update-the-actions-files">Update the <code>actions</code> files</h4>
+<p>Each <code>README.md</code> under the <code>actions</code> directory have an Actions Inputs and Action Outputs section. These sections are generated from the <code>action.yml</code> file in the directory. To update the <code>README.md</code> files, run the following command:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>update-action-readmes
+</code></pre></div>
+<h4 id="authoring-ci-workflows">Authoring CI Workflows</h4>
+<p>The CI workflows for trestle-bot leverage third party actions pinned to a hash value which is updated by <code>dependabot.yml</code>. The purpose of pinning actions to a full length commit SHA is to ensure that the action's code and behavior remain consistent. Actions that are pinned to full length commit SHAs act as immutable releases which allow for distinction between versions and an accurate history log. When selecting a commit SHA to include, the SHA value that is associated with the version of the action should be chosen from the associated action's repository. Dependabot checks for the action's reference against the latest version ensuring a secure and consistent approach to managing dependencies and version updating.</p>
+<p>To generate a pin for a third party action, there should be a full length commit SHA associated with the version of the action being referenced. The reference used is the full length SHA, tag, or branch that dependabot will use when updating dependencies and bumping versions.</p>
+<ul>
+<li>The syntax for a specified action is: <code>OWNER/REPOSITORY@TAG-OR-SHA</code>.</li>
+<li>The syntax for a specified reusable workflow is: <code>OWNER/REPOSITORY/PATH/FILENAME@TAG-OR-SHA</code>.</li>
+</ul>
+<p>This approach is used for authoring CI workflows that utilize versioned actions to produce frequent updates from dependabot for python and GitHub Actions.</p>
+<h3 id="license-text-in-files">License Text in Files</h3>
+<p>Please use the SPDX license identifier in all source files.</p>
+<div class="highlight"><pre><span></span><code># SPDX-License-Identifier: Apache-2.0
+</code></pre></div>
+<h3 id="tools">Tools</h3>
+<h4 id="format-and-styling">Format and Styling</h4>
+<p>This project uses <code>black</code> and <code>isort</code> for formatting and <code>flake8</code> for linting. You can run these commands to format and lint your code.
+Linting checks can be run as a pre-commit hook and are verified in CI.</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>format
+make<span class="w"> </span>lint
+</code></pre></div>
+<p>For non-Python files, we use <a href="https://github.com/oxsecurity/megalinter">Megalinter</a> to lint in a CI task. See <a href="https://github.com/RedHatProductSecurity/trestle-bot/blob/main/.mega-linter.yml">megalinter.yaml</a> for more information.</p>
+<h4 id="type-hints-and-static-type-checking">Type Hints and Static Type Checking</h4>
+<p>We encourage the use of type hints in Python code to enhance readability, maintainability, and robustness of the codebase. Type hints serve as documentation and aid in catching potential errors during development. For static type analysis, we utilize <code>mypy</code>. Running <code>make lint</code> will run <code>mypy</code> checks on the codebase.</p>
+<h4 id="analysis-tools">Analysis Tools</h4>
+<ul>
+<li><a href="https://sonarcloud.io/dashboard?id=rh-psce_trestle-bot">SonarCloud</a> - We use SonarCloud to analyze code quality, coverage, and security. To not break GitHub security model, this will not run on a forked repository.</li>
+<li><a href="https://semgrep.dev/docs/extensions/overview/#pre-commit">Semgrep</a> - Identify issues in the local development environment before committing code. These checks are also run in CI.</li>
+</ul>
+<h3 id="running-tests">Running tests</h3>
+<ul>
+<li><code>make test</code>:  Run unit tests</li>
+<li><code>make test-slow</code>: Run all tests including end-to-end. For information on end-to-end tests, see the e2e <a href="./tests/e2e/README.md">README.md</a>.</li>
+<li><code>make test-integration</code>: Run integration tests, which may be slow and also make network requests. For information on integration tests, see the integration <a href="./tests/integration/README.md">README.md</a>.</li>
+</ul>
+<h4 id="running-tests-with-make">Running tests with make</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run all tests</span>
+make<span class="w"> </span><span class="nb">test</span>
+make<span class="w"> </span>test-slow
+
+<span class="c1"># Run specific tests</span>
+make<span class="w"> </span>test-e2e
+make<span class="w"> </span>test-integration
+</code></pre></div>
+<h4 id="run-with-poetry">Run with poetry</h4>
+<div class="highlight"><pre><span></span><code>make develop
+poetry run trestlebot autosync
+poetry run trestlebot rules-transform
+poetry run trestlebot create compdef
+poetry run trestlebot sync-upstreams
+poetry run trestlebot create ssp
+</code></pre></div>
+<h4 id="local-testing">Local testing</h4>
+<p>For this guide, we will be using <code>podman</code> to test trestlebot in a running container.</p>
+<ol>
+<li>Build the image</li>
+</ol>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>localhost:5000/trestlebot:latest
+</code></pre></div>
+<ol>
+<li>Create an environment variables file if testing with the entrypoint script.</li>
+</ol>
+<blockquote>
+<p>The entrypoint script is where the logic for GitHub specific integrations should be. The environment variables file will contain variables set by GitHub Actions.</p>
+</blockquote>
+<p>Example file named <code>envfile</code></p>
+<p><div class="highlight"><pre><span></span><code>cat envfile
+...
+
+GITHUB_OUTPUT=
+INPUT_SKIP_ITEMS=
+INPUT_DRY_RUN=true
+INPUT_SKIP_ASSEMBLE=false
+INPUT_SKIP_REGENERATE=false
+INPUT_REPO_PATH=.
+INPUT_BRANCH=test
+INPUT_MARKDOWN_DIR=markdown/profiles
+INPUT_OSCAL_MODEL=profile
+INPUT_SSP_INDEX_FILE=
+INPUT_COMMIT_MESSAGE=
+INPUT_COMMIT_USER_NAME=testuser
+INPUT_COMMIT_USER_EMAIL=test@example.com
+INPUT_FILE_PATTERNS=*.md,*.json
+INPUT_COMMIT_AUTHOR_NAME=
+INPUT_COMMIT_AUTHOR_EMAIL=
+INPUT_TARGET_BRANCH=
+GITHUB_ACTIONS=true
+</code></pre></div>
+3. Use <code>podman secret</code> to store sensitive information like API tokens</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>my-token.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>podman<span class="w"> </span>secret<span class="w"> </span>create<span class="w"> </span>repo-secret<span class="w"> </span>-
+</code></pre></div>
+<ol>
+<li>Run the container</li>
+</ol>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>/entrypoint.sh<span class="w"> </span>--secret<span class="w"> </span>repo-secret,type<span class="o">=</span>env,target<span class="o">=</span>TRESTLEBOT_REPO_ACCESS_TOKEN<span class="w"> </span>--env-file<span class="o">=</span>envfile<span class="w"> </span>-v<span class="w"> </span>my-trestle-space:/data<span class="w"> </span>-w<span class="w"> </span>/data<span class="w"> </span>localhost:5000/trestlebot:latest
+</code></pre></div>
+<h4 id="local-github-actions">Local GitHub actions</h4>
+<p>Podman setup</p>
+<ul>
+<li>The workflows can be executed locally by installing <code>act</code> and <code>podman</code>.</li>
+<li>For rootless podman to work with <code>act</code>:</li>
+<li>Enable the socket: <code>systemctl --user enable --now podman.socket</code></li>
+<li>Set the <code>DOCKER_HOST</code> environment variable in your ~/.bashrc:<ul>
+<li><code>export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock</code></li>
+</ul>
+</li>
+</ul>
+<p>Trestle repository setup</p>
+<ul>
+<li><code>cd</code> to the repository's parent directory</li>
+<li><code>git clone --bare trestle-repo trestle-repo-bare.git</code></li>
+<li><code>cd</code> back to the trestle repository</li>
+<li><code>git remote add origin ../trestle-repo-bare.git</code></li>
+<li><code>git fetch --all</code></li>
+</ul>
+<h3 id="release-process">Release Process</h3>
+<p>Once work on a release has been completed:</p>
+<ol>
+<li>Select the new release number. Use the principles of <a href="https://semver.org/">semantic versioning</a> to select the new release number.</li>
+<li>Follow the GitHub documentation on creating a <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release">release</a>.</li>
+<li>
+<p>Once the release is published, the <a href="./.github/workflows/publish.yml"><code>publish</code></a> workflow will be triggered. An image will be built, tested, and published to <code>quay.io</code>. This process also signs and verifies the image with <a href="https://github.com/sigstore/cosign"><code>cosign</code></a>.</p>
+</li>
+<li>
+<p>Initial releases will have a <code>major</code> tag (if stable), <code>major</code>.<code>minor</code>, and the full version.</p>
+</li>
+<li>The latest release will be rebuilt every thirty days to pull in base image updates. The same tags will
+be published with the addition of <code>full-version</code>.<code>date</code> tag.</li>
+<li>Images can be built adhoc for testing purposes with the <code>workflow_dispatch</code> trigger.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2023 Red Hat, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotation", "content.code.copy", "content.tabs.link", "navigation.sections", "navigation.tabs", "navigation.top", "search.highlight", "search.suggest", "toc.integrate"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
