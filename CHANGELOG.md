@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.14.0](https://github.com/complytime/trestle-bot/compare/v0.13.0...v0.14.0) (2025-05-28)
+
+
+### Features
+
+* CPLYTM-754 Implement sync-oscal-content catalog command ([1f4bd88](https://github.com/complytime/trestle-bot/commit/1f4bd881c1015cf7c7cbff362b1efeb5f75cb68f))
+
+
+### Maintenance
+
+* add tests ([7cb3d28](https://github.com/complytime/trestle-bot/commit/7cb3d287581e1388025fe01e235f0e26f39955b8))
+* add tests ([5ee1af4](https://github.com/complytime/trestle-bot/commit/5ee1af4c078e25223638366d40c4f4d6bd77434e))
+* fix lint issues ([2ae8772](https://github.com/complytime/trestle-bot/commit/2ae87729f46d21a261f325d017c4a440726bea07))
+
 ## [0.13.0](https://github.com/complytime/trestle-bot/compare/v0.12.0...v0.13.0) (2025-05-22)
 
 
