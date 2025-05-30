@@ -131,7 +131,7 @@ class SyncCacContentTask(TaskBase):
                 break
 
     def _get_rules_properties(self) -> List[Property]:
-        """Create all of the top-level component properties for rules."""
+        """Create all top-level component properties for rules."""
         rules_transformer = RulesTransformer(
             self.cac_content_root,
             self.product,
