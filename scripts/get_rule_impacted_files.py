@@ -45,11 +45,15 @@ def find_files_with_string(directory, search_string) -> List:
 def main(product, content_root_dir, search_rule, file_type="control"):
     if file_type == "control":
         directory = f"{content_root_dir}/controls/"
+        files = find_files_with_string(directory, search_rule)
+        exclude_string = "SRG-"
+        files = [file for file in files if exclude_string not in file]
+        for i in range(1, len(files)):
+            if "section-" in files[i]:
+                files[i] = "cis_ocp_1_4_0"
     else:
         directory = f"{content_root_dir}/products/{product}/profiles"
-    files = find_files_with_string(directory, search_rule)
-    exclude_string = "SRG-"
-    files = [file for file in files if exclude_string not in file]
+        files = find_files_with_string(directory, search_rule)
     files = set(files)
     logging.info(" ".join(files))
 
