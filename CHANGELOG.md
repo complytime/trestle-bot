@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.14.0](https://github.com/complytime/trestle-bot/compare/v0.13.0...v0.14.0) (2025-06-04)
+
+
+### Features
+
+* CPLYTM-754 Implement sync-oscal-content catalog command ([1f4bd88](https://github.com/complytime/trestle-bot/commit/1f4bd881c1015cf7c7cbff362b1efeb5f75cb68f))
+
+
+### Bug Fixes
+
+* CPLYTM-798 Add numerical suffix to component definition "Parameter" props ([c4e8778](https://github.com/complytime/trestle-bot/commit/c4e8778194b958c174bb45650a7c61544b43e488))
+
+
+### Maintenance
+
+* add tests ([7cb3d28](https://github.com/complytime/trestle-bot/commit/7cb3d287581e1388025fe01e235f0e26f39955b8))
+* add tests ([5ee1af4](https://github.com/complytime/trestle-bot/commit/5ee1af4c078e25223638366d40c4f4d6bd77434e))
+* address the kics warning for leakage ([2d41068](https://github.com/complytime/trestle-bot/commit/2d410687d836b67d5728b49577b840a4bcc8569e))
+* fix lint issues ([2ae8772](https://github.com/complytime/trestle-bot/commit/2ae87729f46d21a261f325d017c4a440726bea07))
+* remove unnecessary persmissions ([b2df986](https://github.com/complytime/trestle-bot/commit/b2df98659359d923d5025e78446687146353993a))
+* update the ocp4 control name ([6c95b78](https://github.com/complytime/trestle-bot/commit/6c95b78310d2088063c052726a934742ca4b5759))
+* update the ocp4 control name ([45da6ee](https://github.com/complytime/trestle-bot/commit/45da6eeb83fc495406012c53856236757ad63c97))
+
 ## [0.13.0](https://github.com/complytime/trestle-bot/compare/v0.12.0...v0.13.0) (2025-05-22)
 
 
