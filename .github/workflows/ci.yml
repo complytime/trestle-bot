@@ -14,8 +14,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-changes:
+    name: Check for changes
+    runs-on: ubuntu-latest
+    outputs:
+      code_changed: ${{ steps.detect.outputs.code_changed }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+
+      - name: Detect changes in Python files
+        id: detect
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          if git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }} | grep -q '\.py$'; then
+            echo "code_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "code_changed=false" >> $GITHUB_OUTPUT
+          fi
+
   megalinter:
     name: Run linters
+    needs: check-changes
+    if: needs.check-changes.outputs.code_changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -32,6 +53,8 @@ jobs:
 
   project_checks:
     name: Run project checks
+    needs: check-changes
+    if: needs.check-changes.outputs.code_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -53,6 +76,9 @@ jobs:
         run: make dep-cve-check
 
   test:
+    name: Run unit tests with different Python versions
+    if: needs.check-changes.outputs.code_changed == 'true'
+    needs: check-changes
     runs-on: ubuntu-latest
     strategy:
       matrix:
