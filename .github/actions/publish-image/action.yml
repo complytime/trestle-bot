@@ -58,7 +58,7 @@ runs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Pre-push Image Scan
-      uses: aquasecurity/trivy-action@6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8 # pin@0.24.0
+      uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # pin@0.31.0
       with:
         image-ref: ${{ inputs.image }}:${{ steps.meta.outputs.version }}
         exit-code: 1
