@@ -6,6 +6,7 @@
             "bump-minor-pre-major": true,
             "draft": true,
             "changelog-path": "CHANGELOG.md",
+            "group-pull-request-title-pattern": "^.*$",
             "changelog-sections": [
                 {
                     "type": "feat",
