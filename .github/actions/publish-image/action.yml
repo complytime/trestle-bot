@@ -33,7 +33,7 @@ runs:
     # Tags are defined here based on workflow triggers
     - name: Define metadata
       id: meta
-      uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # pin@v5
+      uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # pin@v5
       with:
         images: ${{ inputs.image }}
         tags: |
