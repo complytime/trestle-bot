@@ -7,16 +7,5 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Installation Token
-        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
-        id: app_token
-        with:
-          app-id: ${{ secrets.GH_APP_ID }}
-          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: write
-
       - name: Run release-please
         uses: googleapis/release-please-action@a02a34c4d625f9be7cb89156071d8567266a2445 # 4.2.0
-        with:
-          token:  ${{ steps.app_token.outputs.token }}
