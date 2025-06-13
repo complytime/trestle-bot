@@ -11,13 +11,6 @@ from click.testing import CliRunner
 from git import Repo
 from ruamel.yaml import YAML
 
-from tests.testutils import (
-    TEST_DATA_DIR,
-    setup_for_cac_content_dir,
-    setup_for_catalog,
-    setup_for_compdef,
-    setup_for_profile,
-)
 from complyscribe.cli.commands.sync_oscal_content import (
     sync_oscal_catalog_to_cac_content_cmd,
     sync_oscal_cd_to_cac_content_cmd,
@@ -26,6 +19,13 @@ from complyscribe.cli.commands.sync_oscal_content import (
 )
 from complyscribe.const import INVALID_ARGS_EXIT_CODE, SUCCESS_EXIT_CODE
 from complyscribe.utils import get_comments_from_yaml_data, to_literal_scalar_string
+from tests.testutils import (
+    TEST_DATA_DIR,
+    setup_for_cac_content_dir,
+    setup_for_catalog,
+    setup_for_compdef,
+    setup_for_profile,
+)
 
 
 test_product = "rhel8"

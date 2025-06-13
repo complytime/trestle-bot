@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: trestlebot-e2e-pod
+  name: complyscribe-e2e-pod
   labels:
-    app: trestlebot-e2e
+    app: complyscribe-e2e
 spec:
   containers:
   - name: mock-server-container

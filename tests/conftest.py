@@ -14,7 +14,6 @@ from git.repo import Repo
 from trestle.common.err import TrestleError
 from trestle.core.commands.init import InitCmd
 
-from tests.testutils import clean, repo_setup
 from complyscribe import const
 from complyscribe.transformers.trestle_rule import (
     Check,
@@ -24,12 +23,13 @@ from complyscribe.transformers.trestle_rule import (
     Profile,
     TrestleRule,
 )
+from tests.testutils import clean, repo_setup
 
 
 T = TypeVar("T")
 YieldFixture = Generator[T, None, None]
 
-_TEST_PREFIX = "trestlebot_tests"
+_TEST_PREFIX = "complyscribe_tests"
 
 
 @pytest.fixture(scope="function")

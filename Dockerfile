@@ -7,11 +7,11 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     # Paths for the virtual environment and working directory
-    PYSETUP_PATH="/trestle-bot" \
-    VENV_PATH="/trestle-bot/.venv"
+    PYSETUP_PATH="/complyscribe-tests" \
+    VENV_PATH="/complyscribe-tests/.venv"
 
 LABEL maintainer="Red Hat Product Security" \
-      summary="Trestle Bot"
+      summary="ComplyScribe"
 
 # Ensure we use the virtualenv
 ENV PATH="$VENV_PATH/bin:$PATH"
@@ -67,5 +67,5 @@ COPY ./actions/sync-upstreams/sync-upstreams-entrypoint.sh /
 
 RUN chmod +x /auto-sync-entrypoint.sh /rules-transform-entrypoint.sh /create-cd-entrypoint.sh /sync-upstreams-entrypoint.sh
 
-ENTRYPOINT ["python3.9", "-m" , "trestlebot"]
+ENTRYPOINT ["python3.9", "-m" , "complyscribe"]
 CMD ["--help"]

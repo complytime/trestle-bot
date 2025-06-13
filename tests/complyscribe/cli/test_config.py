@@ -59,7 +59,9 @@ def test_make_config_raises_no_errors(tmp_init_dir: str) -> None:
     assert config.committer_email == values["committer_email"]
 
 
-def test_config_write_to_file(config_obj: ComplyScribeConfig, tmp_init_dir: str) -> None:
+def test_config_write_to_file(
+    config_obj: ComplyScribeConfig, tmp_init_dir: str
+) -> None:
     """Test config is written to yaml file."""
     filepath = pathlib.Path(tmp_init_dir).joinpath("config.yml")
     write_to_file(config_obj, filepath)
@@ -69,7 +71,9 @@ def test_config_write_to_file(config_obj: ComplyScribeConfig, tmp_init_dir: str)
     assert yaml_data == config_obj.to_yaml_dict()
 
 
-def test_config_load_from_file(config_obj: ComplyScribeConfig, tmp_init_dir: str) -> None:
+def test_config_load_from_file(
+    config_obj: ComplyScribeConfig, tmp_init_dir: str
+) -> None:
     """Test config is read from yaml file into config object."""
     filepath = pathlib.Path(tmp_init_dir).joinpath("config.yml")
     with filepath.open("w") as config_file:

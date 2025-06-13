@@ -15,9 +15,9 @@ from trestle.core.models.file_content_type import FileContentType
 from trestle.oscal.component import ComponentDefinition
 from trestle.oscal.profile import Profile
 
+from complyscribe.const import RULES_VIEW_DIR, SUCCESS_EXIT_CODE
 from tests.e2e.e2e_testutils import E2ETestRunner
 from tests.testutils import load_from_json, setup_for_profile, setup_rules_view
-from complyscribe.const import RULES_VIEW_DIR, SUCCESS_EXIT_CODE
 
 
 logger = logging.getLogger(__name__)
@@ -61,7 +61,7 @@ def test_rules_transform_e2e(
     test_name: str,
     command_args: Dict[str, str],
 ) -> None:
-    """Test the trestlebot rules transform command."""
+    """Test the complyscribe rules transform command."""
     logger.info(f"Running test: {test_name}")
 
     tmp_repo_str, _ = tmp_repo
@@ -129,7 +129,7 @@ def test_create_cd_e2e(
     test_name: str,
     command_args: Dict[str, str],
 ) -> None:
-    """Test the trestlebot create compdef command."""
+    """Test the complyscribe create compdef command."""
     logger.info(f"Running test: {test_name}")
 
     tmp_repo_str, _ = tmp_repo

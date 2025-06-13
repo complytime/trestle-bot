@@ -13,7 +13,6 @@ from unittest.mock import Mock, patch
 import pytest
 from trestle.core.commands.author.ssp import SSPAssemble, SSPGenerate
 
-from tests import testutils
 from complyscribe.tasks.authored.base_authored import (
     AuthoredObjectBase,
     AuthoredObjectException,
@@ -24,6 +23,7 @@ from complyscribe.tasks.authored.profile import AuthoredProfile
 from complyscribe.tasks.authored.ssp import AuthoredSSP, SSPIndex
 from complyscribe.tasks.base_task import ModelFilter, TaskException
 from complyscribe.tasks.regenerate_task import RegenerateTask
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

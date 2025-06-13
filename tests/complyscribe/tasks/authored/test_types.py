@@ -2,13 +2,12 @@
 # Copyright (c) 2023 Red Hat, Inc.
 
 
-"""Test author types for Trestlebot"""
+"""Test author types for ComplyScribe"""
 
 from unittest.mock import Mock
 
 import pytest
 
-from tests import testutils
 from complyscribe.tasks.authored import types
 from complyscribe.tasks.authored.base_authored import (
     AuthoredObjectBase,
@@ -18,6 +17,7 @@ from complyscribe.tasks.authored.catalog import AuthoredCatalog
 from complyscribe.tasks.authored.compdef import AuthoredComponentDefinition
 from complyscribe.tasks.authored.profile import AuthoredProfile
 from complyscribe.tasks.authored.ssp import AuthoredSSP
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

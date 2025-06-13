@@ -13,10 +13,10 @@ from trestle.common.model_utils import ModelUtils
 from trestle.core.models.file_content_type import FileContentType
 from trestle.tasks.csv_to_oscal_cd import RULE_DESCRIPTION, RULE_ID
 
-from tests.testutils import setup_rules_view
 from complyscribe.tasks.base_task import ModelFilter, TaskException
 from complyscribe.tasks.rule_transform_task import RuleTransformTask
 from complyscribe.transformers.yaml_transformer import ToRulesYAMLTransformer
+from tests.testutils import setup_rules_view
 
 
 test_comp = "test_comp"

@@ -13,10 +13,10 @@ import pytest
 from git.repo import Repo
 from responses import GET, POST, RequestsMock
 
-from tests.testutils import JSON_TEST_DATA_PATH
 from complyscribe.github import GitHub, GitHubActionsResultsReporter, set_output
 from complyscribe.provider import GitProviderException
 from complyscribe.reporter import BotResults
+from tests.testutils import JSON_TEST_DATA_PATH
 
 
 @pytest.mark.parametrize(

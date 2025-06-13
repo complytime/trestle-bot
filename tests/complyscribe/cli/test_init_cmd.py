@@ -10,9 +10,9 @@ from click.testing import CliRunner
 from trestle.common.const import MODEL_DIR_LIST, TRESTLE_CONFIG_DIR, TRESTLE_KEEP_FILE
 from trestle.common.file_utils import is_hidden
 
-from tests.testutils import setup_for_init
 from complyscribe.cli.commands.init import call_trestle_init, init_cmd
 from complyscribe.const import COMPLYSCRIBE_CONFIG_DIR
+from tests.testutils import setup_for_init
 
 
 def test_init_repo_dir_does_not_exist() -> None:
@@ -38,7 +38,9 @@ def test_init_existing_complyscribe_dir(tmp_init_dir: str) -> None:
 
     # setup_for_init(pathlib.Path(tmp_init_dir))
     # Manulaly create .complyscribe dir so it already exists
-    complyscribe_dir = pathlib.Path(tmp_init_dir) / pathlib.Path(COMPLYSCRIBE_CONFIG_DIR)
+    complyscribe_dir = pathlib.Path(tmp_init_dir) / pathlib.Path(
+        COMPLYSCRIBE_CONFIG_DIR
+    )
     complyscribe_dir.mkdir()
 
     setup_for_init(pathlib.Path(tmp_init_dir))

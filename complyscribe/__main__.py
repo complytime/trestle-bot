@@ -3,7 +3,7 @@
 # Copyright (c) 2023 Red Hat, Inc.
 
 
-# Default entrypoint for complyscribe is the root cmd when run with python -m complyscribe 
+# Default entrypoint for complyscribe is the root cmd when run with python -m complyscribe
 
 from complyscribe.cli.root import root_cmd
 

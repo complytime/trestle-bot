@@ -8,7 +8,11 @@ from typing import Any, List
 
 import click
 
-from complyscribe.cli.options.common import common_options, git_options, handle_exceptions
+from complyscribe.cli.options.common import (
+    common_options,
+    git_options,
+    handle_exceptions,
+)
 from complyscribe.cli.utils import comma_sep_to_list, run_bot
 from complyscribe.const import RULES_VIEW_DIR
 from complyscribe.tasks.authored.compdef import AuthoredComponentDefinition

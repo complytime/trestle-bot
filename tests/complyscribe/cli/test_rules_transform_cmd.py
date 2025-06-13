@@ -2,7 +2,7 @@
 # Copyright (c) 2024 Red Hat, Inc.
 
 
-"""Testing module for trestlebot rules-transform command"""
+"""Testing module for complyscribe rules-transform command"""
 
 import pathlib
 from typing import Tuple
@@ -10,8 +10,8 @@ from typing import Tuple
 from click.testing import CliRunner
 from git import Repo
 
-from tests.testutils import setup_for_compdef, setup_rules_view
 from complyscribe.cli.commands.rules_transform import rules_transform_cmd
+from tests.testutils import setup_for_compdef, setup_rules_view
 
 
 test_comp_name = "test_comp"

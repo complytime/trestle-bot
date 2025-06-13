@@ -20,7 +20,6 @@ from trestle.oscal import catalog as oscal_cat
 from trestle.oscal import component as oscal_comp
 from trestle.oscal import profile as oscal_prof
 
-from tests import testutils
 from complyscribe.tasks.assemble_task import AssembleTask
 from complyscribe.tasks.authored.base_authored import (
     AuthoredObjectBase,
@@ -31,6 +30,7 @@ from complyscribe.tasks.authored.compdef import AuthoredComponentDefinition
 from complyscribe.tasks.authored.profile import AuthoredProfile
 from complyscribe.tasks.authored.ssp import AuthoredSSP, SSPIndex
 from complyscribe.tasks.base_task import ModelFilter, TaskException
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

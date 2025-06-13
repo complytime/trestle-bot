@@ -12,7 +12,7 @@ import pytest
 from git import GitCommandError
 from git.repo import Repo
 
-from complyscribe.bot import RepoException, ComplyScribe
+from complyscribe.bot import ComplyScribe, RepoException
 from complyscribe.provider import GitProvider, GitProviderException
 from complyscribe.tasks.base_task import TaskBase, TaskException
 

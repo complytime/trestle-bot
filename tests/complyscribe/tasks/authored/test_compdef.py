@@ -11,7 +11,6 @@ import pytest
 from trestle.common.err import TrestleError
 from trestle.oscal.profile import Profile
 
-from tests import testutils
 from complyscribe.const import RULES_VIEW_DIR, YAML_EXTENSION
 from complyscribe.tasks.authored.base_authored import AuthoredObjectException
 from complyscribe.tasks.authored.compdef import (
@@ -19,6 +18,7 @@ from complyscribe.tasks.authored.compdef import (
     FilterByProfile,
 )
 from complyscribe.transformers.yaml_transformer import ToRulesYAMLTransformer
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

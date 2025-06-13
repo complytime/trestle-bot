@@ -8,8 +8,8 @@ from typing import Tuple
 from click.testing import CliRunner
 from git import Repo
 
-from tests.testutils import setup_for_compdef, setup_for_ssp
 from complyscribe.cli.commands.create import create_cmd
+from tests.testutils import setup_for_compdef, setup_for_ssp
 
 
 test_prof = "simplified_nist_profile"

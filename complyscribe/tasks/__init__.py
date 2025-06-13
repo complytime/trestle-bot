@@ -4,7 +4,7 @@
 """
 ComplyScribe tasks module.
 
-Tasks are the primary unit of work in trestlebot.
+Tasks are the primary unit of work in complyscribe.
 They are designed to perform workspace
 operation for trestle workspace management.
 """

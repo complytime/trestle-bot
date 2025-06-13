@@ -13,9 +13,9 @@ import pytest
 from git.repo import Repo
 from trestle.common.const import TRESTLE_CONFIG_DIR
 
-from tests.testutils import setup_for_compdef
 from complyscribe.tasks.base_task import ModelFilter, TaskException
 from complyscribe.tasks.sync_upstreams_task import SyncUpstreamsTask
+from tests.testutils import setup_for_compdef
 
 
 def test_sync_upstreams_task(tmp_trestle_dir: str, tmp_repo: Tuple[str, Repo]) -> None:

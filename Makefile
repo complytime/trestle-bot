@@ -1,4 +1,4 @@
-PYMODULE := trestlebot
+PYMODULE := complyscribe 
 E2E := e2e
 TESTS := tests
 
@@ -36,7 +36,7 @@ test-slow:
 .PHONY: test-slow
 
 test-e2e:
-	@poetry run pytest $(TESTS)/$(E2E) --slow --cov --cov-config=pyproject.toml --cov-report=xml
+	@poetry run pytest $(TESTS)/$(E2E) -s -vvv --slow --cov --cov-config=pyproject.toml --cov-report=xml
 .PHONY: test-e2e
 
 test-integration:
@@ -44,7 +44,7 @@ test-integration:
 .PHONY: test-integration
 
 test-code-cov:
-	@poetry run pytest --cov=trestlebot --exitfirst --cov-config=pyproject.toml --cov-report=xml --cov-fail-under=80
+	@poetry run pytest --cov=complyscribe --exitfirst --cov-config=pyproject.toml --cov-report=xml --cov-fail-under=80
 .PHONY: test-code-cov
 
 # https://github.com/python-poetry/poetry/issues/994#issuecomment-831598242

@@ -13,13 +13,13 @@ from trestle.common.const import REPLACE_ME
 from trestle.oscal.catalog import Catalog, Control
 from trestle.oscal.component import ComponentDefinition
 
-from tests.testutils import TEST_DATA_DIR, setup_for_catalog, setup_for_profile
 from complyscribe.cli.commands.sync_cac_content import (
     sync_cac_catalog_cmd,
     sync_cac_content_cmd,
     sync_cac_content_profile_cmd,
     sync_content_to_component_definition_cmd,
 )
+from tests.testutils import TEST_DATA_DIR, setup_for_catalog, setup_for_profile
 
 
 test_product = "rhel8"

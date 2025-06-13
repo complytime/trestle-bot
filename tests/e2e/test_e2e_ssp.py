@@ -28,10 +28,10 @@ from trestle.core.commands.author.ssp import SSPGenerate
 from trestle.core.models.file_content_type import FileContentType
 from trestle.oscal.ssp import SystemSecurityPlan
 
-from tests.e2e.e2e_testutils import E2ETestRunner
-from tests.testutils import clean, prepare_upstream_repo, setup_for_ssp
 from complyscribe.const import ERROR_EXIT_CODE, SUCCESS_EXIT_CODE
 from complyscribe.tasks.authored.ssp import SSPIndex
+from tests.e2e.e2e_testutils import E2ETestRunner
+from tests.testutils import clean, prepare_upstream_repo, setup_for_ssp
 
 
 logger = logging.getLogger(__name__)
@@ -78,7 +78,7 @@ def test_ssp_editing_e2e(
     e2e_runner: E2ETestRunner,
     valid_args_dict: Dict[str, str],
 ) -> None:
-    """Test the trestlebot autosync command with SSPs."""
+    """Test the complyscribe autosync command with SSPs."""
     tmp_repo_str, _ = tmp_repo
     tmp_repo_path = pathlib.Path(tmp_repo_str)
 
@@ -174,7 +174,7 @@ def test_ssp_e2e_editing_failure(
     valid_args_dict: Dict[str, str],
 ) -> None:
     """
-    Test the trestlebot autosync command with SSPs with failure.
+    Test the complyscribe autosync command with SSPs with failure.
 
     Notes: The test should fail because of the missing entry in the ssp-index.
     This simulates the use case if an SSP is created outside of the tool.

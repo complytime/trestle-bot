@@ -19,9 +19,9 @@ from trestle.core.commands.init import InitCmd
 from complyscribe.cli.config import make_config, write_to_file
 from complyscribe.cli.options.common import common_options
 from complyscribe.const import (
-    ERROR_EXIT_CODE,
     COMPLYSCRIBE_CONFIG_DIR,
     COMPLYSCRIBE_KEEP_FILE,
+    ERROR_EXIT_CODE,
 )
 
 

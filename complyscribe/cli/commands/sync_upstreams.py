@@ -9,7 +9,11 @@ from typing import Any, List
 import click
 
 from complyscribe.bot import ComplyScribe
-from complyscribe.cli.options.common import common_options, git_options, handle_exceptions
+from complyscribe.cli.options.common import (
+    common_options,
+    git_options,
+    handle_exceptions,
+)
 from complyscribe.cli.utils import comma_sep_to_list
 from complyscribe.const import ERROR_EXIT_CODE
 from complyscribe.tasks.base_task import ModelFilter, TaskBase

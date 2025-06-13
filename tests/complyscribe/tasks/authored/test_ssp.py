@@ -16,9 +16,9 @@ from trestle.core.commands.author.ssp import SSPGenerate
 from trestle.core.models.file_content_type import FileContentType
 from trestle.oscal import ssp as ossp
 
-from tests import testutils
 from complyscribe.tasks.authored.base_authored import AuthoredObjectException
 from complyscribe.tasks.authored.ssp import AuthoredSSP, SSPIndex
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

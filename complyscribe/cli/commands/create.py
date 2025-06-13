@@ -11,7 +11,11 @@ from typing import Any, List
 import click
 
 from complyscribe import const
-from complyscribe.cli.options.common import common_options, git_options, handle_exceptions
+from complyscribe.cli.options.common import (
+    common_options,
+    git_options,
+    handle_exceptions,
+)
 from complyscribe.cli.options.create import common_create_options
 from complyscribe.cli.utils import comma_sep_to_list, run_bot
 from complyscribe.tasks.assemble_task import AssembleTask

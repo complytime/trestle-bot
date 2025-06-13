@@ -13,8 +13,8 @@ from trestle.common.model_utils import ModelUtils
 from trestle.core.models.file_content_type import FileContentType
 from trestle.oscal.profile import CombinationMethodValidValues, Profile
 
-from tests import testutils
 from complyscribe.tasks.authored.profile import AuthoredProfile, CatalogControlResolver
+from tests import testutils
 
 
 test_prof = "simplified_nist_profile"

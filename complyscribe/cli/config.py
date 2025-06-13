@@ -143,7 +143,9 @@ def make_config(values: Optional[Dict[str, Any]] = None) -> ComplyScribeConfig:
         raise ComplyScribeConfigError(ex.errors())
 
 
-def update_config(config: ComplyScribeConfig, update: Dict[str, Any]) -> ComplyScribeConfig:
+def update_config(
+    config: ComplyScribeConfig, update: Dict[str, Any]
+) -> ComplyScribeConfig:
     """Returns a new config object with specified updates."""
     try:
         return config.model_copy(update=update)

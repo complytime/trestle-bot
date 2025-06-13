@@ -10,10 +10,10 @@ from typing import Tuple
 from click.testing import CliRunner
 from git import Repo
 
-from tests.testutils import clean, prepare_upstream_repo, setup_for_init
 from complyscribe.cli.commands.sync_upstreams import sync_upstreams_cmd
 from complyscribe.cli.config import make_config, write_to_file
 from complyscribe.const import COMPLYSCRIBE_CONFIG_DIR
+from tests.testutils import clean, prepare_upstream_repo, setup_for_init
 
 
 TEST_CATALOG = "simplified_nist_catalog"
@@ -62,8 +62,10 @@ def test_sync_upstreams_with_config(
 
     source: str = prepare_upstream_repo()
 
-    trestlebot_dir = pathlib.Path(tmp_init_dir) / pathlib.Path(COMPLYSCRIBE_CONFIG_DIR)
-    trestlebot_dir.mkdir()
+    complyscribe_dir = pathlib.Path(tmp_init_dir) / pathlib.Path(
+        COMPLYSCRIBE_CONFIG_DIR
+    )
+    complyscribe_dir.mkdir()
 
     setup_for_init(pathlib.Path(tmp_init_dir))
 

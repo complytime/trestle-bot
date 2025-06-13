@@ -10,13 +10,13 @@ from typing import Any, Dict
 
 import pytest
 
-from tests.testutils import YAML_TEST_DATA_PATH
 from complyscribe.transformers.base_transformer import RulesTransformerException
 from complyscribe.transformers.trestle_rule import TrestleRule
 from complyscribe.transformers.yaml_transformer import (
     FromRulesYAMLTransformer,
     ToRulesYAMLTransformer,
 )
+from tests.testutils import YAML_TEST_DATA_PATH
 
 
 def test_rule_transformer() -> None:

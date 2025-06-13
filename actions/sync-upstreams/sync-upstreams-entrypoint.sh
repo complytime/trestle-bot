@@ -11,7 +11,7 @@ set_git_safe_directory
 INPUT_SOURCES=$(echo "${INPUT_SOURCES}" | tr '\n' ' ' | tr -s ' ' | sed 's/ *$//' | tr ' ' ',')
 
 # Initialize the command variable
-command="trestlebot sync-upstreams \
+command="complyscribe sync-upstreams \
         --sources=\"${INPUT_SOURCES}\" \
         --include-models=\"${INPUT_INCLUDE_MODELS}\" \
         --exclude-models=\"${INPUT_EXCLUDE_MODELS}\" \
