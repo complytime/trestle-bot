@@ -1,8 +1,8 @@
 #!/bin/bash
 # SPDX-License-Identifier: Apache-2.0
-# This script initializes RHEL products OSCAL content using the Trestlebot CLI.
+# This script initializes RHEL products OSCAL content using the ComplyScribe CLI.
 # Pre-requirements:
-# 1. Git clone the Trestlebot and setup the trestlebot
+# 1. Git clone the ComplyScribe repo and setup complyscribe
 # 2. Git clone CAC repository
 # 3. Git clone OSCAL content reppository
 # 4. Setup the OSCAL content branch
@@ -41,8 +41,8 @@ for product in "${RH_PRODUCTS[@]}"; do
     fi
     # Generate OSCAL catalog and profile
     for policy_id in "${product_controls[@]}"; do
-        poetry run trestlebot sync-cac-content catalog  --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --cac-policy-id "$policy_id" --oscal-catalog "$policy_id" --dry-run
-        poetry run trestlebot sync-cac-content profile  --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --cac-policy-id "$policy_id" --oscal-catalog "$policy_id" --dry-run
+        poetry run complyscribe sync-cac-content catalog  --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --cac-policy-id "$policy_id" --oscal-catalog "$policy_id" --dry-run
+        poetry run complyscribe sync-cac-content profile  --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --cac-policy-id "$policy_id" --oscal-catalog "$policy_id" --dry-run
     done
     # Generate OSCAL component-definition
     file="$product""_map.json"
@@ -64,9 +64,9 @@ for product in "${RH_PRODUCTS[@]}"; do
                 # sed -i "" "/href/s|\(trestle://\)[^ ]*\(catalogs\)|\1\2|g" "$oscal_repo_path/profiles/$oscal_profile/profile.json"
                 # For Linux
                 sed -i "/href/s|\(trestle://\)[^ ]*\(catalogs\)|\1\2|g" "$oscal_repo_path/profiles/$oscal_profile/profile.json"
-                poetry run trestlebot sync-cac-content component-definition --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --component-definition-type "$type" --cac-profile "$profile" --oscal-profile "$oscal_profile" --dry-run
+                poetry run complyscribe sync-cac-content component-definition --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --component-definition-type "$type" --cac-profile "$profile" --oscal-profile "$oscal_profile" --dry-run
                 type="validation"
-                poetry run trestlebot sync-cac-content component-definition --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --component-definition-type "$type" --cac-profile "$profile" --oscal-profile "$oscal_profile" --dry-run
+                poetry run complyscribe sync-cac-content component-definition --repo-path "$oscal_repo_path" --committer-email "openscap-ci@gmail.com" --committer-name "openscap-ci" --branch "$repo_branch" --cac-content-root "$cac_repo_path" --product "$product" --component-definition-type "$type" --cac-profile "$profile" --oscal-profile "$oscal_profile" --dry-run
             done
         done < "$product""_map.json"
     fi    

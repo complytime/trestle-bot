@@ -10,13 +10,13 @@ import pathlib
 from trestle.common.load_validate import load_validate_model_name
 from trestle.oscal import component as comp
 
-import trestlebot.const as const
+import complyscribe.const as const
+from complyscribe.tasks.assemble_task import AssembleTask
+from complyscribe.tasks.authored.compdef import AuthoredComponentDefinition
+from complyscribe.tasks.regenerate_task import RegenerateTask
+from complyscribe.tasks.rule_transform_task import RuleTransformTask
+from complyscribe.transformers.yaml_transformer import ToRulesYAMLTransformer
 from tests.testutils import setup_for_profile
-from trestlebot.tasks.assemble_task import AssembleTask
-from trestlebot.tasks.authored.compdef import AuthoredComponentDefinition
-from trestlebot.tasks.regenerate_task import RegenerateTask
-from trestlebot.tasks.rule_transform_task import RuleTransformTask
-from trestlebot.transformers.yaml_transformer import ToRulesYAMLTransformer
 
 
 test_component_definition = "test_component_definition"

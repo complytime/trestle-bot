@@ -23,9 +23,9 @@ from trestle.oscal import catalog as cat
 from trestle.oscal import component as comp
 from trestle.oscal import profile as prof
 
-from trestlebot.cli.log import configure_logger
-from trestlebot.const import YAML_EXTENSION
-from trestlebot.utils import to_literal_scalar_string
+from complyscribe.cli.log import configure_logger
+from complyscribe.const import YAML_EXTENSION
+from complyscribe.utils import to_literal_scalar_string
 
 
 TEST_DATA_DIR = pathlib.Path(__file__).parent.resolve() / "data/"

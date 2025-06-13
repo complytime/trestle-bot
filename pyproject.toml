@@ -4,9 +4,9 @@ build-backend = 'poetry.core.masonry.api'
 
 
 [tool.poetry]
-name = 'trestlebot'
+name = 'complyscribe'
 version = "0.13.0"
-description = "trestle-bot assists users in leveraging Compliance-Trestle in automated workflows of for OSCAL formatted compliance content management."
+description = "complyscribe assists users in leveraging Compliance-Trestle in automated workflows of for OSCAL formatted compliance content management."
 
 authors = ["Jennifer Power <jpower@redhat.com>",]
 
@@ -15,11 +15,11 @@ exclude = ['tests/', 'docs/']
 license = 'Apache-2.0'
 readme = 'README.md'
 
-repository = 'https://github.com/RedHatProductSecurity/trestle-bot'
+repository = 'https://github.com/RedHatProductSecurity/complyscribe'
 
 
 [tool.poetry.scripts]
-trestlebot = "trestlebot.cli.root:root_cmd"
+complyscribe = "complyscribe.cli.root:root_cmd"
 
 [tool.poetry.dependencies]
 python = '^3.8.1'

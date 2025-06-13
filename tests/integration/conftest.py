@@ -16,10 +16,10 @@ import pytest
 
 root_repo_dir = Path(__file__).resolve().parent.parent.parent
 scripts_dir = root_repo_dir / "scripts"
-complytime_cache_dir = Path("/tmp/trestle-bot-complytime-cache")
+complytime_cache_dir = Path("/tmp/complyscribe-complytime-cache")
 complytime_cache_dir.mkdir(parents=True, exist_ok=True)
 int_test_data_dir = Path(__file__).parent.parent / "integration_data/"
-_TEST_PREFIX = "trestlebot_tests"
+_TEST_PREFIX = "complyscribe_tests"
 
 T = TypeVar("T")
 YieldFixture = Generator[T, None, None]

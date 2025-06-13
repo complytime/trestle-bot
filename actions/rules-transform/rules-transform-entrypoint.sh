@@ -8,7 +8,7 @@ source /common.sh
 set_git_safe_directory
 
 # Initialize the command variable
-command="trestlebot rules-transform \
+command="complyscribe rules-transform \
         --markdown-dir=\"${INPUT_MARKDOWN_DIR}\" \
         --rules-view-dir=\"${INPUT_RULES_VIEW_DIR}\" \
         --commit-message=\"${INPUT_COMMIT_MESSAGE}\" \

@@ -5,7 +5,7 @@ import sys
 from typing import Dict
 from ssg.profiles import _load_yaml_profile_file, get_profiles_from_products
 
-from trestlebot.utils import load_controls_manager
+from complyscribe.utils import load_controls_manager
 
 import logging
 

@@ -15,30 +15,33 @@ from tests.testutils import args_dict_to_list
 class E2ETestRunner:
     """Class to run e2e tests."""
 
-    TRESTLEBOT_TEST_IMAGE_NAME = "localhost/trestlebot:latest"
+    COMPLYSCRIBE_TEST_IMAGE_NAME = "localhost/complyscribe:latest"
     MOCK_SERVER_IMAGE_NAME = "localhost/mock-server:latest"
-    TRESTLEBOT_TEST_POD_NAME = "trestlebot-e2e-pod"
+    COMPLYSCRIBE_TEST_POD_NAME = "complyscribe-e2e-pod"
     E2E_BUILD_CONTEXT = "tests/e2e"
     CONTAINER_FILE_NAME = "Dockerfile"
     UPSTREAM_REPO = "/upstream"
 
     def __init__(self) -> None:
         """Initialize the class."""
-        self.trestlebot_image = os.environ.get(
-            "TRESTLEBOT_IMAGE", E2ETestRunner.TRESTLEBOT_TEST_IMAGE_NAME
+        self.complyscribe_image = os.environ.get(
+            "COMPLYSCRIBE_IMAGE", E2ETestRunner.COMPLYSCRIBE_TEST_IMAGE_NAME
         )
-        self.cleanup_trestlebot_image = False
+        self.cleanup_complyscribe_image = False
         self.cleanup_mock_server_image = False
 
     def setup(self) -> None:
         """
-        Build the trestlebot container image and run the mock server in a pod.
+        Build the complyscribe container image and run the mock server in a pod.
 
         Yields:
-            Tuple[int, str]: The return code from the podman play command and the trestlebot image name.
+            Tuple[int, str]: The return code from the podman play command and
+                the complyscribe image name.
         """
         try:
-            self.cleanup_trestlebot_image = self.build_test_image(self.trestlebot_image)
+            self.cleanup_copmlyscribe_image = self.build_test_image(
+                self.complyscribe_image
+            )
             self.cleanup_mock_server_image = self.build_test_image(
                 E2ETestRunner.MOCK_SERVER_IMAGE_NAME,
                 f"{E2ETestRunner.E2E_BUILD_CONTEXT}/{E2ETestRunner.CONTAINER_FILE_NAME}",
@@ -71,8 +74,8 @@ class E2ETestRunner:
                 ],
                 check=True,
             )
-            if self.cleanup_trestlebot_image:
-                subprocess.run(["podman", "rmi", self.trestlebot_image], check=True)
+            if self.cleanup_complyscribe_image:
+                subprocess.run(["podman", "rmi", self.complyscribe_image], check=True)
             if self.cleanup_mock_server_image:
                 subprocess.run(
                     ["podman", "rmi", E2ETestRunner.MOCK_SERVER_IMAGE_NAME], check=True
@@ -125,13 +128,14 @@ class E2ETestRunner:
         upstream_repo: str = "",
     ) -> List[str]:
         """
-        Build a command to be run in the shell for trestlebot
+        Build a command to be run in the shell for complyscribe
 
         Args:
             data_path (str): Path to the data directory. This is the working directory/trestle_root.
-            command_name (str): Name of the command to run. It should be a trestlebot command.
+            command_name (str): Name of the command to run. It should be a complyscribe command.
             command_args (Dict[str, str]): Arguments to pass to the command
-            image_name (str, optional): Name of the image to run. Defaults to TRESTLEBOT_TEST_IMAGE_NAME.
+            image_name (str, optional): Name of the image to run.
+                Defaults to COMPLYSCRIBE_TEST_IMAGE_NAME.
             upstream_repo (str, optional): Path to the upstream repo. Defaults to "" and is not mounted.
 
         Returns:
@@ -141,9 +145,9 @@ class E2ETestRunner:
             "podman",
             "run",
             "--pod",
-            E2ETestRunner.TRESTLEBOT_TEST_POD_NAME,
+            E2ETestRunner.COMPLYSCRIBE_TEST_POD_NAME,
             "--entrypoint",
-            "trestlebot",
+            "complyscribe",
             "--restart",
             "never",
         ]
@@ -156,10 +160,10 @@ class E2ETestRunner:
         command.extend(
             [
                 "-v",
-                f"{data_path}:/trestle",
+                f"{data_path}:/complyscribe",
                 "-w",
-                "/trestle",
-                self.trestlebot_image,
+                "/complyscribe",
+                self.complyscribe_image,
             ]
         )
         command_nodes = command_name.split()

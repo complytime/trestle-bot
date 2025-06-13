@@ -1,0 +1,48 @@
+---
+name: ComplyScribe create component-definition
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile_name:
+        description: Name of the Trestle profile to use for the component definition
+        required: true
+      component_definition_name:
+        description: Name of the component definition to create
+        required: true
+      component_title:
+        description: Name of the component to create in the generated component definition
+        required: true
+      component_type:
+        description: Type of the component (e.g. service, policy, physical, validation, etc.)
+        required: false
+        default: "service"
+      component_description:
+        description: Description of the component to create
+        required: true
+
+jobs:
+  create-component-definition:
+    name: Create component definition
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create component definition and open pull request
+        id: generate-cd
+        uses: RedHatProductSecurity/complyscribe/actions/create-cd@main
+        with:
+          profile_name: ${{ github.event.inputs.profile_name }}
+          component_definition_name: ${{ github.event.inputs.component_definition_name}}
+          component_title: ${{ github.event.inputs.component_title }}
+          component_type: ${{ github.event.inputs.component_type }}
+          component_description: ${{ github.event.inputs.component_description }}
+          markdown_dir: "markdown/component-definitions"
+          branch: "create-component-definition-${{ github.run_id }}"
+          target_branch: "main"
+          file_patterns: "*.json,markdown/*,rules/*"
+          commit_message: "adds component  ${{ github.event.inputs.component_title }} in ${{ github.event.inputs.component_definition_name }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}

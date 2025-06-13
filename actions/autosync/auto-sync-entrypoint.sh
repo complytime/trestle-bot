@@ -8,7 +8,7 @@ source /common.sh
 set_git_safe_directory
 
 # Initialize the command variable
-command="trestlebot autosync \
+command="complyscribe autosync \
         --markdown-dir=\"${INPUT_MARKDOWN_DIR}\" \
         --oscal-model=\"${INPUT_OSCAL_MODEL}\" \
         --ssp-index-file=\"${INPUT_SSP_INDEX_FILE}\" \

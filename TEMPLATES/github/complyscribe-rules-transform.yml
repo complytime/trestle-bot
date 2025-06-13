@@ -1,0 +1,53 @@
+---
+name: ComplyScribe rules-transform and autosync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'profiles/**'
+      - 'catalogs/**'
+      - 'component-definitions/**'
+      - 'markdown/**'
+      - 'rules/**'
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  check_rules:
+    runs-on: ubuntu-latest
+    outputs:
+      rules_changed: ${{ steps.changes.outputs.rules }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dorny/paths-filter@v3
+      id: changes
+      with:
+        filters: |
+          rules:
+            - 'rules/**'
+  rules-transform-and-autosync:
+    name: Rules Transform and AutoSync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: check_rules
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: AutoSync
+        id: autosync
+        uses: RedHatProductSecurity/complyscribe/actions/autosync@main
+        with:
+          markdown_dir: "markdown/component-definitions"
+          oscal_model: "compdef"
+          commit_message: "Autosync component definition content [skip ci]"
+      - name: Rules Transform
+        if: needs.check_rules.outputs.rules_changed == 'true'
+        uses: RedHatProductSecurity/complyscribe/actions/rules-transform@main
+        with:
+          markdown_dir: "markdown/component-definitions"
+          commit_message: "Auto-transform rules [skip ci]"

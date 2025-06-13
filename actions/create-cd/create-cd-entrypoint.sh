@@ -8,7 +8,7 @@ source /common.sh
 set_git_safe_directory
 
 # Initialize the command variable
-command="trestlebot create compdef \
+command="complyscribe create compdef \
         --profile-name=\"${INPUT_PROFILE_NAME}\" \
         --compdef-name=\"${INPUT_COMPONENT_DEFINITION_NAME}\" \
         --component-title=\"${INPUT_COMPONENT_TITLE}\" \
